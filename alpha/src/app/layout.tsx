@@ -27,7 +27,7 @@ export default function RootLayout({
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           <Navbar />
           <Provider store={store}>
-            <main className="pt-16">{children}</main> //! Add padding here to push content below navbar
+            <main className="pt-16">{children}</main> 
           </Provider>
         </body>
       </html>
