@@ -13,7 +13,8 @@ import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "YYYYY", href: "/yyy" },
+  { name: "Menu", href: "/menu" },
+  { name: "Cart", href: "/cart" },
 ];
 
 function Navbar() {
@@ -29,7 +30,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-[#B4FCB6] shadow-md fixed w-full z-10">
+    <nav className="bg-[#d5d7d8] shadow-md fixed w-full z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <Link href="/" className="text-xl font-bold text-gray-900">
@@ -48,18 +49,18 @@ function Navbar() {
               </Link>
             ))}
 
-            <Link href="#email">
-              <p>XXXXX</p>
+            <Link href="#">
+              <p>CALL TO ACTION???</p>
             </Link>
             <div>
-            <SignedOut>
-              <SignInButton />
-            </SignedOut>
+              <SignedOut>
+                <SignInButton />
+              </SignedOut>
 
-            <SignedIn>
-              <SignOutButton />
-            </SignedIn>
-          </div>
+              <SignedIn>
+                <SignOutButton />
+              </SignedIn>
+            </div>
           </div>
 
           <button
@@ -69,12 +70,11 @@ function Navbar() {
           >
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
-          
         </div>
       </div>
 
       <div
-        className={`md:hidden bg-[#B4FCB6] p-4 flex flex-col items-center space-y-4 transition-all duration-300 ease-in-out transform ${
+        className={`md:hidden bg-[#d5d7d8] p-4 flex flex-col items-center space-y-4 transition-all duration-300 ease-in-out transform ${
           isOpen
             ? "max-h-screen opacity-100 translate-y-0"
             : "max-h-0 opacity-0 translate-y-5"
@@ -90,8 +90,8 @@ function Navbar() {
             {link.name}
           </Link>
         ))}
-        <Link href="#email" onClick={closeMenu}>
-          <p>XXXXX</p>
+        <Link href="" onClick={closeMenu}>
+          <p>CALL TO ACTION???</p>
         </Link>
         <div>
           <SignedOut>
