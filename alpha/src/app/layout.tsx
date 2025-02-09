@@ -16,7 +16,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -25,13 +24,11 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-                <Navbar />
-        <Provider store={store}>
-          {children}
-        </Provider>
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+          <Navbar />
+          <Provider store={store}>
+            <main className="pt-16">{children}</main> //! Add padding here to push content below navbar
+          </Provider>
         </body>
       </html>
     </ClerkProvider>
