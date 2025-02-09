@@ -1,51 +1,52 @@
-// "use client";
+"use client";
 import Image from "next/image";
 import client from "../lib/contentful";
 import { BsBasket2 } from "react-icons/bs";
-import { Princess_Sofia } from 'next/font/google'
-// import { useDispatch, useSelector } from "react-redux";
-// import { useEffect } from "react";
-// import {fetchDataStart, fetchDataSuccess, fetchDataFailure} from '../context/slices/DataSlice'
+import { Princess_Sofia } from "next/font/google";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { RootState } from "../context/store";
+import { fetchData } from "../context/slices/DataSlice";
+
 
 const PrincessSofia = Princess_Sofia({
-    weight: '400',
-    subsets: ['latin'],
-  })
+  weight: "400",
+  subsets: ["latin"],
+});
 
 export default async function Menu() {
-    // const dispatch = useDispatch ();
-    // const {data, loading, error} = useSelector((state) => state.data)
-    // useEffect(() => {
-    //     const fetchentries = async () => {
-    //         try {
-    //             dispatch(fetchDataStart())
-    //           const entries = await client.getEntries({ content_type: "menu" });
-    //           dispatch(fetchDataSuccess(entries))
-    //           return entries.items;
-    //         } catch (error) {
-    //           dispatch(fetchDataFailure(error))
-    //         }
-    //       };
-    //       fetchentries()
-    // },[dispatch])
 
-    const fetchentries2 = async () => {
-        try {
-          const entries = await client.getEntries({ content_type: "menu" });
-          return entries.items;
-        } catch (error) {
-          console.log(error);
-        }
-      };
-      const entries: any = await fetchentries2();
-      console.clear();
-      console.dir(entries, { depth: null });
+  const dispatch = useDispatch ();
+const {data, loading, error} = useSelector((state:RootState) => state.data)
+  useEffect(() => {
+if(data.length == 0) {
+    dispatch(fetchData())
+}
+  },[dispatch])
+
+//   const fetchentries2 = async () => {
+//     try {
+//       const entries = await client.getEntries({ content_type: "menu" });
+//       return entries.items;
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+//   const entries: any = await fetchentries2();
+//   console.clear();
+//   console.log("******Open*********")
+//     console.dir(entries, { depth: null });
+//   console.log("********Close*******")
+
+//   console.log('entries here => ',entries);
 
   return (
     <>
-      <div className={`ContainerMenu grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl mx-auto py-8 ${PrincessSofia.className}`}>
-        {entries.length > 0 ? (
-          entries.map((entry: any) => {
+      <div
+        className={`ContainerMenu grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl mx-auto py-8 ${PrincessSofia.className}`}
+      >
+        {data.length > 0 ? (
+          data.map((entry: any) => {
             const { id, name, image, price, description, category, rating } =
               entry.fields as any;
             const imageUrl = image?.fields?.file.url || "";
@@ -79,7 +80,7 @@ export default async function Menu() {
                       ${price.toFixed(2)}
                     </p>
                     <div className="icon rounded-full bg-gray-200 text-black w-10 h-10 flex items-center justify-center cursor-pointer">
-                      <BsBasket2 size={20} className="cursor-pointer"/>
+                      <BsBasket2 size={20} className="cursor-pointer" />
                     </div>
                   </div>
                 </div>
