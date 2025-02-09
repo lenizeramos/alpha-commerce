@@ -4,6 +4,7 @@ import "./globals.css";
 import { Provider } from "react-redux";
 import store from "./context/store";
 import { ClerkProvider } from "@clerk/nextjs";
+import Navbar from "@/app/components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +28,7 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
+                <Navbar />
         <Provider store={store}>
           {children}
         </Provider>
