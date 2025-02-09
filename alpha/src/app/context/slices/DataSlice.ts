@@ -1,21 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { DataItem, DataState } from "@/app/types/SliceTypes";
 
-type DataItem = {
-  id: number;
-  name: string;
-  image: string;
-  price: number;
-  description: string;
-  category: string;
-  rating: number;
-};
 
-interface DataState {
-  data: DataItem[];
-  loading: boolean;
-  error: string | null; 
-}
 
 const initialState: DataState = {
   data: [],
