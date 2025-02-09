@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import client from "../../lib/contentful";
 import { RootState } from "../store";
 
 type DataItem = {
@@ -25,21 +24,11 @@ const initialState: DataState = {
 };
 
 export const fetchData = createAsyncThunk(
-  "menu/fetchData",
+  "api/fetchData",
   async () => {
-    const entries = await client.getEntries({ content_type: "menu" });
-    const data = entries.items.map((entry:any) => {
-      const { id, name, image,price, description, category, rating} = entry.fields as any
-      return {
-        id,
-        name,
-        image: image?.fields?.file.url || "",
-        price,
-        description,
-        category,
-        rating
-      }
-    })
+    const response = await fetch('api/fetchData')
+    const data = await response.json()
+    console.log(data)
     return data;
   }
 );

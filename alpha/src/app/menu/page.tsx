@@ -1,45 +1,28 @@
 "use client";
 import Image from "next/image";
-import client from "../lib/contentful";
 import { BsBasket2 } from "react-icons/bs";
 import { Princess_Sofia } from "next/font/google";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { RootState } from "../context/store";
+import { RootState, AppDispatch } from "../context/store";
 import { fetchData } from "../context/slices/DataSlice";
-
 
 const PrincessSofia = Princess_Sofia({
   weight: "400",
   subsets: ["latin"],
 });
 
-export default async function Menu() {
+export default function Menu() {
+  const dispatch: AppDispatch = useDispatch();
+  const { data, loading, error } = useSelector(
+    (state: RootState) => state.data
+  );
 
-  const dispatch = useDispatch ();
-const {data, loading, error} = useSelector((state:RootState) => state.data)
   useEffect(() => {
-if(data.length == 0) {
-    dispatch(fetchData())
-}
-  },[dispatch])
-
-//   const fetchentries2 = async () => {
-//     try {
-//       const entries = await client.getEntries({ content_type: "menu" });
-//       return entries.items;
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-//   const entries: any = await fetchentries2();
-//   console.clear();
-//   console.log("******Open*********")
-//     console.dir(entries, { depth: null });
-//   console.log("********Close*******")
-
-//   console.log('entries here => ',entries);
-
+    if (data.length === 0) {
+      dispatch(fetchData());
+    }
+  }, [dispatch, data.length]);
   return (
     <>
       <div
