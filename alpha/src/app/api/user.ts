@@ -1,4 +1,4 @@
-// pages/api/user.js
+/* // pages/api/user.js
 import prisma from '../../lib/prisma';
 
 export async function handler(req, res) {
@@ -18,3 +18,4 @@ export async function handler(req, res) {
     res.status(405).json({ message: 'Method Not Allowed' });
   }
 }
+ */

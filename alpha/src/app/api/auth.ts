@@ -1,4 +1,4 @@
-import { ClerkProvider, RedirectToSignIn, useUser } from '@clerk/nextjs';
+/* import { ClerkProvider, RedirectToSignIn, useUser } from '@clerk/nextjs';
 
 export function useAuth() {
   const { user, isLoaded } = useUser();
@@ -6,3 +6,4 @@ export function useAuth() {
 
   return user;
 }
+ */
