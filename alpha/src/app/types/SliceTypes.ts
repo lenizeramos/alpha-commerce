@@ -1,11 +1,19 @@
 export type DataItem = {
-  id: number;
-  name: string;
-  image: string;
-  price: number;
-  description: string;
-  category: string;
-  rating: number;
+  fields: {
+    id: number;
+    name: string;
+    image: {
+      fields: {
+        file: {
+          url: string;
+        };
+      };
+    };
+    price: number;
+    description: string;
+    category: string;
+    rating: number;
+  };
 };
 
 export interface DataState {
