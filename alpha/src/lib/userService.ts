@@ -1,4 +1,4 @@
-/* import prisma from "./prisma";
+import prisma from "./prisma";
 
 export interface ClerkUserCreatedEvent {
   id: string;
@@ -19,8 +19,19 @@ export async function storeUser(data: ClerkUserCreatedEvent) {
 
   return prisma.user.upsert({
     where: { clerkId: user.clerkId },
-    update: user,
-    create: user,
+    update: {
+      clerkId: user.clerkId,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      photo: user.photo,
+    },
+    create: {
+      clerkId: user.clerkId,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      photo: user.photo,
+    },
   });
 }
- */
