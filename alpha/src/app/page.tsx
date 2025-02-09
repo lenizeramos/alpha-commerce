@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 export default async function Home() { 
   return(
     <>
-    <h1>Welcome</h1>
+      <Navbar />
     </>
   )
 }
