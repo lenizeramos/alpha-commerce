@@ -3,10 +3,12 @@ import Image from "next/image";
 import { BsBasket2 } from "react-icons/bs";
 import { Princess_Sofia } from "next/font/google";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react"; 
 import { RootState, AppDispatch } from "../context/store";
 import { fetchData } from "../context/slices/DataSlice";
 import Link from "next/link";
+import CartAnimation from "../components/CartAnimation";
+import { addToCart } from "../context/slices/CartSlice";
 
 const PrincessSofia = Princess_Sofia({
   weight: "400",
@@ -19,13 +21,25 @@ export default function Menu() {
     (state: RootState) => state.data
   );
 
+  const [showAnimation, setShowAnimation] = useState(false);
+
   useEffect(() => {
     if (data.length === 0) {
       dispatch(fetchData());
     }
   }, [dispatch, data.length]);
+
+  const handleAddToCart = (item: CartItem) => {
+    dispatch(addToCart(item));
+    setShowAnimation(true);
+    setTimeout(() => {
+      setShowAnimation(false);
+    }, 1500);
+  };
+
   return (
     <>
+      {showAnimation && <CartAnimation />} 
       <div
         className={`ContainerMenu grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl mx-auto py-8 ${PrincessSofia.className}`}
       >
@@ -44,8 +58,6 @@ export default function Menu() {
                     <Image
                       src={`https:${imageUrl}`}
                       alt={name}
-                      //   width={200}
-                      //   height={100}
                       fill
                       className="rounded-lg"
                     />
@@ -63,9 +75,20 @@ export default function Menu() {
                       <p className="text-lg font-medium text-green-600 mb-2">
                         ${price.toFixed(2)}
                       </p>
-                      <div className="icon rounded-full bg-gray-200 text-black w-10 h-10 flex items-center justify-center cursor-pointer">
-                        <BsBasket2 size={20} className="cursor-pointer" />
-                      </div>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleAddToCart({
+                            name,
+                            image: imageUrl,
+                            price,
+                            rating,
+                          });
+                        }}
+                        className="icon rounded-full bg-gray-200 text-black w-10 h-10 flex items-center justify-center cursor-pointer"
+                      >
+                        <BsBasket2 size={20} />
+                      </button>
                     </div>
                   </div>
                 </div>
