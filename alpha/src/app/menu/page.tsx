@@ -9,6 +9,7 @@ import { fetchData } from "../context/slices/DataSlice";
 import Link from "next/link";
 import CartAnimation from "../components/CartAnimation";
 import { addToCart } from "../context/slices/CartSlice";
+import { CartItem } from "../context/slices/CartSlice";
 
 const PrincessSofia = Princess_Sofia({
   weight: "400",
@@ -36,6 +37,7 @@ export default function Menu() {
       setShowAnimation(false);
     }, 1500);
   };
+
 
   return (
     <>
@@ -79,10 +81,12 @@ export default function Menu() {
                         onClick={(e) => {
                           e.preventDefault();
                           handleAddToCart({
+                            id,
                             name,
                             image: imageUrl,
                             price,
                             rating,
+                            quantity: 1,
                           });
                         }}
                         className="icon rounded-full bg-gray-200 text-black w-10 h-10 flex items-center justify-center cursor-pointer"
