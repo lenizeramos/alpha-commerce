@@ -1,9 +1,8 @@
 "use client";
 import {
-  SignInButton,
-  SignOutButton,
   SignedIn,
   SignedOut,
+  useClerk,
 } from "@clerk/nextjs";
 
 import { useState } from "react";
@@ -12,7 +11,6 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import CTA from "./CTA";
 import { LiaSignOutAltSolid } from "react-icons/lia";
-import { useClerk } from "@clerk/clerk-react";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -45,29 +43,32 @@ function Navbar() {
             Alpha
           </Link>
           <div className="hidden md:flex space-x-6 justify-center items-center">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-gray-900 hover:text-gray-500 transition-colors"
-                aria-current={pathname === link.href ? "page" : undefined}
-                onClick={closeMenu}
-              >
-                {link.name}
-              </Link>
-            ))}
+            {navLinks.map(
+              (link) =>
+                pathname !== link.href && (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="text-gray-900 hover:text-gray-500 transition-colors"
+                    aria-current={pathname === link.href ? "page" : undefined}
+                    onClick={closeMenu}
+                  >
+                    {link.name}
+                  </Link>
+                )
+            )}
 
-            <Link href="/menu">
-              <CTA />
-            </Link>
             <div>
               <SignedOut>
-                <SignInButton />
+                <CTA />
               </SignedOut>
 
               <SignedIn>
-                <LiaSignOutAltSolid size={35} onClick={handleSignOut} className="cursor-pointer hover:text-purple-500"/>
-                {/* <SignOutButton /> */}
+                <LiaSignOutAltSolid
+                  size={35}
+                  onClick={handleSignOut}
+                  className="cursor-pointer hover:text-purple-500"
+                />
               </SignedIn>
             </div>
           </div>
@@ -89,26 +90,30 @@ function Navbar() {
             : "max-h-0 opacity-0 translate-y-5"
         } overflow-hidden`}
       >
-        {navLinks.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className="  text-center py-2 text-gray-900 hover:text-gray-500 transition-colors"
-            onClick={closeMenu}
-          >
-            {link.name}
-          </Link>
-        ))}
-        <Link href="" onClick={closeMenu}>
-          <CTA />
-        </Link>
+        {navLinks.map(
+          (link) =>
+            pathname !== link.href && (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-center py-2 text-gray-900 hover:text-gray-500 transition-colors"
+                onClick={closeMenu}
+              >
+                {link.name}
+              </Link>
+            )
+        )}
         <div>
           <SignedOut>
-            <SignInButton />
+            <CTA />
           </SignedOut>
 
           <SignedIn>
-            <SignOutButton />
+            <LiaSignOutAltSolid
+              size={35}
+              onClick={handleSignOut}
+              className="cursor-pointer hover:text-purple-500"
+            />
           </SignedIn>
         </div>
       </div>

@@ -6,6 +6,9 @@ import { RootState, AppDispatch } from "../app/context/store";
 import { useEffect } from "react";
 import Image from "next/image";
 import CTA from "./components/CTA";
+import { SignedOut, SignedIn } from "@clerk/nextjs";
+import Link from "next/link";
+import MenuButton from "./components/MenuButton";
 
 export default function Home() {
   const dispatch: AppDispatch = useDispatch();
@@ -16,8 +19,6 @@ export default function Home() {
       dispatch(fetchData());
     }
   }, [dispatch, data.length]);
-
-  console.log("data", data);
 
   return (
     <div className="relative min-h-screen px-8 py-12 flex items-center justify-center">
@@ -31,7 +32,14 @@ export default function Home() {
             the service you deserve. We’re waiting for you!
           </p>
           <div className="flex justify-center">
-            <CTA />
+            <SignedOut>
+              <CTA />
+            </SignedOut>
+            <SignedIn>
+              <Link href="/menu">
+                <MenuButton/>
+              </Link>
+            </SignedIn>
           </div>
         </div>
         <div className="relative flex justify-center">
