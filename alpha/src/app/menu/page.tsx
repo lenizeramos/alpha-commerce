@@ -38,6 +38,7 @@ export default function Menu() {
     }, 1500);
   };
 
+
   return (
     <>
       {showAnimation && <CartAnimation />} 
@@ -80,10 +81,12 @@ export default function Menu() {
                         onClick={(e) => {
                           e.preventDefault();
                           handleAddToCart({
+                            id,
                             name,
                             image: imageUrl,
                             price,
                             rating,
+                            quantity: 1,
                           });
                         }}
                         className="icon rounded-full bg-gray-200 text-black w-10 h-10 flex items-center justify-center cursor-pointer"

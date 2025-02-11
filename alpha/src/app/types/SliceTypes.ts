@@ -23,8 +23,10 @@ export interface DataState {
 }
 
 export interface CartItem {
+  id: number;
   name: string;
   image: string;
   price: number;
   rating: number;
+  quantity: number;
 }
