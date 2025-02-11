@@ -9,7 +9,7 @@ import { fetchData } from "../context/slices/DataSlice";
 import Link from "next/link";
 import CartAnimation from "../components/CartAnimation";
 import { addToCart } from "../context/slices/CartSlice";
-import { CartItem } from "../context/slices/CartSlice";
+import { CartItem } from "../types/SliceTypes";
 
 const PrincessSofia = Princess_Sofia({
   weight: "400",
