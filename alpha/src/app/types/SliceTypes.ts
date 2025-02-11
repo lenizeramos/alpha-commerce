@@ -21,3 +21,10 @@ export interface DataState {
   loading: boolean;
   error: string | null;
 }
+
+export interface CartItem {
+  name: string;
+  image: string;
+  price: number;
+  rating: number;
+}

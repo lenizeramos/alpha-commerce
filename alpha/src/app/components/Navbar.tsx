@@ -10,6 +10,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
+import CTA from "./CTA";
+import { LiaSignOutAltSolid } from "react-icons/lia";
+import { useClerk } from "@clerk/clerk-react";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -20,6 +23,7 @@ const navLinks = [
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const { signOut } = useClerk();
 
   const handleMenuToggle = () => {
     setIsOpen((prevState) => !prevState);
@@ -27,6 +31,10 @@ function Navbar() {
 
   const closeMenu = () => {
     setIsOpen(false);
+  };
+
+  const handleSignOut = () => {
+    signOut();
   };
 
   return (
@@ -49,8 +57,8 @@ function Navbar() {
               </Link>
             ))}
 
-            <Link href="#">
-              <p>CALL TO ACTION???</p>
+            <Link href="/menu">
+              <CTA />
             </Link>
             <div>
               <SignedOut>
@@ -58,7 +66,8 @@ function Navbar() {
               </SignedOut>
 
               <SignedIn>
-                <SignOutButton />
+                <LiaSignOutAltSolid size={35} onClick={handleSignOut} className="cursor-pointer hover:text-purple-500"/>
+                {/* <SignOutButton /> */}
               </SignedIn>
             </div>
           </div>
@@ -91,7 +100,7 @@ function Navbar() {
           </Link>
         ))}
         <Link href="" onClick={closeMenu}>
-          <p>CALL TO ACTION???</p>
+          <CTA />
         </Link>
         <div>
           <SignedOut>
