@@ -51,14 +51,14 @@ function Navbar() {
     setMenu(name)
   };
   return (
-    <nav className="bg-[#311a37] shadow-md fixed w-full z-10 text-white">
+    <nav className="bg-[#f4f4f3] shadow-md fixed w-full z-10 text-[#311a37]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <Link
             href="/"
-            className={`text-shadow flex items-center text-5xl font-bold ${textTitle.className}`}
+            className={`text-shadow flex items-center text-5xl font-bold ${textTitle.className} gap-4`}
           >
-            <Image src={"/logo1.png"} width={80} height={80} alt="logo" className="pb-2"/>
+            <Image src={"/logo1.png"} width={50} height={50} alt="logo" className="pb-2"/>
             Alpha Bites
           </Link>
           <div className="hidden md:flex space-x-6 justify-center items-center">
@@ -67,7 +67,7 @@ function Navbar() {
                 pathname !== link.href && (
                   <button
                     key={link.href}
-                    className={`hover:text-[#bd65f0] transition-colors ${textNav.className} ${menu === link.name ? 'text-purple-500 text-lg' : ''}`}
+                    className={`hover:text-[#ea6d27] transition-colors ${textNav.className} ${menu === link.name ? 'text-orange-400 text-lg' : ''}`}
                     onClick={() =>
                       handleLinkClick(link.href, link.protectedUrl, link.name)
                     }
@@ -79,14 +79,14 @@ function Navbar() {
 
             <div>
               <SignedOut>
-                <CTA />
+                <CTA text='TAKEOUT!'/>
               </SignedOut>
 
               <SignedIn>
                 <GiExitDoor
                   size={35}
                   onClick={handleSignOut}
-                  className="cursor-pointer"
+                  className="cursor-pointer hover:text-[#ea6d27]"
                 />
               </SignedIn>
             </div>
@@ -114,7 +114,7 @@ function Navbar() {
             pathname !== link.href && (
               <button
                 key={link.href}
-                className={`text-center py-2 text-gray-900 hover:text-gray-500 transition-colors ${menu === link.name ? 'text-purple-500' : ''}`}
+                className={`text-center py-2 text-gray-900 hover:text-[#ea6d27] transition-colors ${menu === link.name ? 'text-orange-400' : ''}`}
                 onClick={() => handleLinkClick(link.href, link.protectedUrl, link.name)}
               >
                 {link.name}
@@ -129,7 +129,7 @@ function Navbar() {
                 setIsOpen(false);
               }}
             >
-              <CTA />
+              <CTA text='TAKEOUT!' />
             </div>
           </SignedOut>
 
@@ -137,7 +137,7 @@ function Navbar() {
             <GiExitDoor
               size={35}
               onClick={handleSignOut}
-              className="cursor-pointer hover:text-purple-500"
+              className="cursor-pointer hover:text-[#ea6d27]"
             />
           </SignedIn>
         </div>

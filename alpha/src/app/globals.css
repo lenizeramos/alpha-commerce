@@ -21,18 +21,16 @@ body {
 }
 
 .text-shadow {
-  text-shadow: 0 -1px 0 #fff, 0 1px 0 #6c4776, 0 2px 0 #5c3c64, 0 3px 0 #402a46,
-    0 4px 0 #855791, 0 5px 0 #5f3a69, 0 6px 0 #503957, 0 7px 0 #222,
-    0 22px 30px #000000e6;
+  text-shadow: 0 -1px 0 #fff, 0 1px 0 #565555, 0 2px 0 #565554, 0 3px 0 #444242, 0 22px 30px #4e4c4ae6;
 }
 
 .botton-shadow{
-  box-shadow:inset 0px 1px 3px 0px #aa91b8;
-  background:linear-gradient(to bottom, #3f2545 5%, #5c5460 100%);
-  border:1px solid #625669;
+  box-shadow:inset 0px 1px 3px 0px #ea6d27;
+  background:linear-gradient(to bottom, #f37f3b 5%, #ea6d27 100%);
+  border:1px solid #c75e22;
 }
 
 .botton-shadow:hover {
-  background:linear-gradient(to bottom, #5c5460 5%, #3f2545 100%);
-	background-color:#766c7c;
+  background:linear-gradient(to bottom, #ea6d27 5%, #f57d37 100%);
+	background-color:#c75f23;
 }

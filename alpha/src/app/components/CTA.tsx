@@ -6,14 +6,18 @@ const delicious = Delicious_Handrawn({
   style: "normal",
 });
 
-const CTA = () => {
+interface ICTA {
+  text:string
+}
+
+const CTA = ({text}:ICTA) => {
   const router = useRouter();
   return (
     <button
       onClick={() => router.push("/sign-in")}
       className={` botton-shadow px-5 py-2 text-white rounded-full ${delicious.className} text-xl`}
     >
-      TAKEOUT!
+      {text}
     </button>
   );
 };

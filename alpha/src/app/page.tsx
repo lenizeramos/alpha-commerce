@@ -8,7 +8,6 @@ import Image from "next/image";
 import CTA from "./components/CTA";
 import { SignedOut, SignedIn } from "@clerk/nextjs";
 import Link from "next/link";
-import MenuButton from "./components/MenuButton";
 
 export default function Home() {
   const dispatch: AppDispatch = useDispatch();
@@ -21,7 +20,7 @@ export default function Home() {
   }, [dispatch, data.length]);
 
   return (
-    <div className="relative min-h-screen px-8 py-12 flex items-center justify-center">
+    <div className="relative min-h-screen px-8 py-12 flex items-center justify-center bg-[#f3f4f4]">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div className="space-y-6">
           <h1 className={`text-4xl font-bold text-gray-900`}>
@@ -33,11 +32,11 @@ export default function Home() {
           </p>
           <div className="flex justify-center">
             <SignedOut>
-              <CTA />
+              <CTA text='TAKEOUT!'/>
             </SignedOut>
             <SignedIn>
               <Link href="/menu">
-                <MenuButton/>
+                <CTA text='Menu'/>
               </Link>
             </SignedIn>
           </div>
