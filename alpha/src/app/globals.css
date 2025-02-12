@@ -19,3 +19,20 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.text-shadow {
+  text-shadow: 0 -1px 0 #fff, 0 1px 0 #6c4776, 0 2px 0 #5c3c64, 0 3px 0 #402a46,
+    0 4px 0 #855791, 0 5px 0 #5f3a69, 0 6px 0 #503957, 0 7px 0 #222,
+    0 22px 30px #000000e6;
+}
+
+.botton-shadow{
+  box-shadow:inset 0px 1px 3px 0px #aa91b8;
+  background:linear-gradient(to bottom, #3f2545 5%, #5c5460 100%);
+  border:1px solid #625669;
+}
+
+.botton-shadow:hover {
+  background:linear-gradient(to bottom, #5c5460 5%, #3f2545 100%);
+	background-color:#766c7c;
+}
