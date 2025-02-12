@@ -28,7 +28,6 @@ export default function Cart() {
       });
 
       const data = await response.json();
-      console.log (data);
       window.location.href = data.url; 
     } catch (error) {
       alert("An error occurred. Please try again.");

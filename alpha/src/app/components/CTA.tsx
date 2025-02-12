@@ -1,5 +1,5 @@
 import { Delicious_Handrawn } from "next/font/google";
-import { SignInButton } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 const delicious = Delicious_Handrawn({
   weight: "400",
@@ -7,17 +7,17 @@ const delicious = Delicious_Handrawn({
 });
 
 const CTA = () => {
+  const router = useRouter();
   return (
-    <SignInButton>
-      <button
-        className={`px-5 py-2 bg-purple-800 text-white rounded-full ${delicious.className} text-xl
+    <button
+      onClick={() => router.push("/sign-in")}
+      className={`px-5 py-2 bg-purple-800 text-white rounded-full ${delicious.className} text-xl
   hover:bg-purple-500 
   hover:border hover:border-white 
   hover:shadow-lg transition-transform duration-300 ease-in-out`}
-      >
-        TAKEOUT!
-      </button>
-    </SignInButton>
+    >
+      TAKEOUT!
+    </button>
   );
 };
 
