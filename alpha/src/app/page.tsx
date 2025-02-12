@@ -9,6 +9,13 @@ import CTA from "./components/CTA";
 import { SignedOut, SignedIn } from "@clerk/nextjs";
 import Link from "next/link";
 
+import { Gowun_Dodum } from "next/font/google";
+const textFont = Gowun_Dodum({
+  weight: "400",
+  style: "normal",
+});
+
+
 export default function Home() {
   const dispatch: AppDispatch = useDispatch();
   const { data } = useSelector((state: RootState) => state.data);
@@ -23,7 +30,7 @@ export default function Home() {
     <div className="relative min-h-screen px-8 py-12 flex items-center justify-center bg-[#f3f4f4]">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div className="space-y-6">
-          <h1 className={`text-4xl font-bold text-gray-900`}>
+          <h1 className={`text-7xl font-bold text-gray-900 text-center ${textFont.className}`}>
             We provide the best food for you
           </h1>
           <p className="text-gray-600 text-lg">
@@ -42,13 +49,13 @@ export default function Home() {
           </div>
         </div>
         <div className="relative flex justify-center">
-          <div className="relative w-[400px] h-[500px] rounded-xl overflow-hidden shadow-lg">
+          <div className="relative w-[400px] h-[500px] rounded-xl overflow-hidden">
             <Image
               src="/home/restaurant.jpg"
               alt="Restaurant Interior"
               layout="fill"
               objectFit="cover"
-              className="rounded-xl"
+              className="img-shadow rounded-[86%_14%_90%_10%_/_36%_61%_39%_64%]"
             />
           </div>
           <div className="absolute -bottom-10 -left-12 w-56 h-56 transform rotate-12">
@@ -62,13 +69,13 @@ export default function Home() {
                 return (
                   <div
                     key={id}
-                    className="containerImg w-full h-40 mb-4 relative overflow-hidden"
+                    className="containerImg w-full h-52 mb-4 relative overflow-hidden "
                   >
                     <Image
                       src={`https:${imageUrl}`}
                       alt={name}
                       fill
-                      className="rounded-lg"
+                      className="rounded-[23%_77%_28%_72%_/_77%_26%_74%_23%] border-[2px] border-[#3d3d37]"
                     />
                   </div>
                 );

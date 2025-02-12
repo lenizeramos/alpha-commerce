@@ -56,7 +56,7 @@ function Navbar() {
         <div className="flex justify-between h-16 items-center">
           <Link
             href="/"
-            className={`text-shadow flex items-center text-5xl font-bold ${textTitle.className} gap-4`}
+            className={`text-shadow flex items-center text-[2.5rem] sm:text-5xl font-bold ${textTitle.className} sm:gap-4`}
           >
             <Image src={"/logo1.png"} width={50} height={50} alt="logo" className="pb-2"/>
             Alpha Bites
@@ -93,7 +93,7 @@ function Navbar() {
           </div>
 
           <button
-            className="md:hidden text-gray-700 dark:text-white"
+            className="md:hidden text-gray-700 dark:text-[#311a37]"
             onClick={handleMenuToggle}
             aria-label="Toggle menu"
           >
@@ -103,9 +103,9 @@ function Navbar() {
       </div>
 
       <div
-        className={`md:hidden bg-[#d5d7d8] flex flex-col items-center space-y-4 transition-all duration-300 ease-in-out transform ${
+        className={`md:hidden bg-[#d5d7d8] flex flex-col items-center gap-2 transition-all duration-300 ease-in-out transform ${textNav.className} ${
           isOpen
-            ? "max-h-screen opacity-100 translate-y-0"
+            ? "max-h-screen opacity-100 translate-y-0 pb-3"
             : "max-h-0 opacity-0 translate-y-5"
         } overflow-hidden `}
       >
@@ -129,7 +129,7 @@ function Navbar() {
                 setIsOpen(false);
               }}
             >
-              <CTA text='TAKEOUT!' />
+              <CTA text='TAKEOUT!'/>
             </div>
           </SignedOut>
 
