@@ -1,40 +1,41 @@
 "use client";
-import {
-  SignedIn,
-  SignedOut,
-  useClerk,
-} from "@clerk/nextjs";
+import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import CTA from "./CTA";
 import { LiaSignOutAltSolid } from "react-icons/lia";
 
 const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "Menu", href: "/menu" },
-  { name: "Cart", href: "/cart" },
+  { name: "Home", href: "/", protectedUrl: false },
+  { name: "Menu", href: "/menu", protectedUrl: true },
+  { name: "Cart", href: "/cart", protectedUrl: true },
 ];
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-  const { signOut } = useClerk();
+  const { signOut, user } = useClerk();
+  const router = useRouter();
 
   const handleMenuToggle = () => {
     setIsOpen((prevState) => !prevState);
-  };
-
-  const closeMenu = () => {
-    setIsOpen(false);
   };
 
   const handleSignOut = () => {
     signOut();
   };
 
+  const handleLinkClick = (href: string, protectedUrl: boolean) => {
+    if (!user && protectedUrl) {
+      router.push("/sign-in");
+    } else {
+      router.push(href);
+    }
+    setIsOpen(false);
+  };
   return (
     <nav className="bg-[#d5d7d8] shadow-md fixed w-full z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,15 +47,15 @@ function Navbar() {
             {navLinks.map(
               (link) =>
                 pathname !== link.href && (
-                  <Link
+                  <button
                     key={link.href}
-                    href={link.href}
                     className="text-gray-900 hover:text-gray-500 transition-colors"
-                    aria-current={pathname === link.href ? "page" : undefined}
-                    onClick={closeMenu}
+                    onClick={() =>
+                      handleLinkClick(link.href, link.protectedUrl)
+                    }
                   >
                     {link.name}
-                  </Link>
+                  </button>
                 )
             )}
 
@@ -93,19 +94,25 @@ function Navbar() {
         {navLinks.map(
           (link) =>
             pathname !== link.href && (
-              <Link
+              <button
                 key={link.href}
-                href={link.href}
                 className="text-center py-2 text-gray-900 hover:text-gray-500 transition-colors"
-                onClick={closeMenu}
+                onClick={() => handleLinkClick(link.href, link.protectedUrl)}
               >
                 {link.name}
-              </Link>
+              </button>
             )
         )}
         <div>
           <SignedOut>
-            <CTA />
+            <div
+              onClick={() => {
+                console.log("YYYYYY");
+                setIsOpen(false);
+              }}
+            >
+              <CTA />
+            </div>
           </SignedOut>
 
           <SignedIn>
