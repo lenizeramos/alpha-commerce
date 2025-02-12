@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { menu_list } from "../../../public/menu_list";
+import { menu_list } from "../../../public/variables";
 
 interface IFilters {
   category: string;
