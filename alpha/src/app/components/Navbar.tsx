@@ -7,7 +7,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import CTA from "./CTA";
 import { GiExitDoor } from "react-icons/gi";
-import { useClerk } from "@clerk/clerk-react";
 import Image from "next/image";
 
 import { Ephesis, Tomorrow } from "next/font/google";
@@ -38,22 +37,18 @@ function Navbar() {
     setIsOpen((prevState) => !prevState);
   };
 
-  const closeMenu = (id:string) => {
-    setMenu(id)
-    setIsOpen(false);
-  };
-
   const handleSignOut = () => {
     signOut();
   };
 
-  const handleLinkClick = (href: string, protectedUrl: boolean) => {
+  const handleLinkClick = (href: string, protectedUrl: boolean, name:string) => {
     if (!user && protectedUrl) {
       router.push("/sign-in");
     } else {
       router.push(href);
     }
     setIsOpen(false);
+    setMenu(name)
   };
   return (
     <nav className="bg-[#311a37] shadow-md fixed w-full z-10 text-white">
@@ -74,7 +69,7 @@ function Navbar() {
                     key={link.href}
                     className={`hover:text-[#bd65f0] transition-colors ${textNav.className} ${menu === link.name ? 'text-purple-500 text-lg' : ''}`}
                     onClick={() =>
-                      handleLinkClick(link.href, link.protectedUrl)
+                      handleLinkClick(link.href, link.protectedUrl, link.name)
                     }
                   >
                     {link.name}
@@ -93,7 +88,6 @@ function Navbar() {
                   onClick={handleSignOut}
                   className="cursor-pointer"
                 />
-                {/* <SignOutButton /> */}
               </SignedIn>
             </div>
           </div>
@@ -121,7 +115,7 @@ function Navbar() {
               <button
                 key={link.href}
                 className={`text-center py-2 text-gray-900 hover:text-gray-500 transition-colors ${menu === link.name ? 'text-purple-500' : ''}`}
-                onClick={() => handleLinkClick(link.href, link.protectedUrl)}
+                onClick={() => handleLinkClick(link.href, link.protectedUrl, link.name)}
               >
                 {link.name}
               </button>
