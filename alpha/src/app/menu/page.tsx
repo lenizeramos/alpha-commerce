@@ -11,6 +11,7 @@ import CartAnimation from "../components/CartAnimation";
 import { addToCart } from "../context/slices/CartSlice";
 import { CartItem, DataState } from "../types/SliceTypes";
 import Filters from "../components/Filters";
+import "./menu.css";
 
 const PrincessSofia = Princess_Sofia({
   weight: "400",
@@ -25,6 +26,43 @@ export default function Menu() {
   const [filter, setFilter] = useState<string>("All");
 
   const [showAnimation, setShowAnimation] = useState<boolean>(false);
+
+  const getIngredientColor = (ingredient: string) => {
+    const colorMap: { [key: string]: string } = {
+      "Chicken": "bg-red-500",
+      "Beef": "bg-red-700",
+      "Pork": "bg-pink-600",
+      "Tofu": "bg-yellow-500",
+      "Egg": "bg-yellow-300",
+      "Fish": "bg-blue-500",
+      "Shrimp": "bg-orange-500",
+      "Tomato": "bg-red-400",
+      "Lettuce": "bg-green-500",
+      "Onion": "bg-purple-500",
+      "Carrot": "bg-orange-400",
+      "Bell Pepper": "bg-green-600",
+      "Spinach": "bg-green-700",
+      "Cheddar Cheese": "bg-yellow-600",
+      "Mozzarella Cheese": "bg-yellow-400",
+      "Butter": "bg-yellow-200",
+      "Rice": "bg-gray-300",
+      "Noodles": "bg-gray-400",
+      "Pasta": "bg-gray-500",
+      "Tortilla": "bg-yellow-500",
+      "Soy Sauce": "bg-gray-700",
+      "Ketchup": "bg-red-600",
+      "Basil": "bg-green-800",
+      "Oregano": "bg-green-700",
+      "Paprika": "bg-red-500",
+      "Salt": "bg-gray-600",
+      "Black Pepper": "bg-black",
+      "Sugar": "bg-gray-300",
+      "Chocolate": "bg-brown-700",
+      "Vanilla Extract": "bg-yellow-400"
+    };
+    
+    return colorMap[ingredient] || "bg-gray-400"; // Color por defecto
+  };
 
   useEffect(() => {
     if (data.length === 0) {
@@ -60,59 +98,72 @@ export default function Menu() {
               const imageUrl = image?.fields?.file.url || "";
               if (filter === "All" || category === filter) {
                 return (
-                  <Link key={id} href={`/menu/${id}`}>
-                    <div className="containerItem flex flex-col items-center justify-center bg-white pb-8 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl">
-                      <div className="containerImg w-full h-40 mb-4 relative overflow-hidden">
-                        <Image
-                          src={`https:${imageUrl}`}
-                          alt={name}
-                          fill
-                          sizes="auto"
-                          className="rounded-lg"
-                        />
-                      </div>
-                      <div className="info w-full flex flex-col items-start px-8 gap-2">
-                        <h2 className="text-xl font-semibold text-gray-800 text-center">
-                          {name}
-                        </h2>
-                        <div className="rating flex">
-                          {Array.from({ length: 5 }, (_, index) => (
-                            <span
-                              key={index}
-                              className={
-                                index < rating
-                                  ? "text-yellow-500"
-                                  : "text-gray-400"
-                              }
-                            >
-                              ★
-                            </span>
-                          ))}
-                        </div>
-                        <div className="price flex justify-between w-full items-center">
-                          <p className="text-lg text-purple-900 mb-2 font-bold">
-                            ${price.toFixed(2)}
-                          </p>
-                          <button
-                            onClick={(e) => {
-                              e.preventDefault();
-                              handleAddToCart({
-                                id,
-                            name,
-                                image: imageUrl,
-                                price,
-                                rating,
-                                quantity: 1,
-                          });
-                            }}
-                            className="icon rounded-full bg-gray-200 text-black w-10 h-10 flex items-center justify-center cursor-pointer"
+                  <div key={id} className="containerItem flex flex-col items-center justify-center bg-white pb-8 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedItem({
+                          id,
+                          name,
+                          image: imageUrl,
+                          price,
+                          rating,
+                          quantity: 1,
+                          description,
+                          ingredients: entry.fields.ingredients?.map((ingredient: any) => ingredient.fields.name) || [],
+                        });
+                        setIsModalOpen(true);
+                      }}
+                  >
+                    <div className="containerImg w-full h-40 mb-4 relative overflow-hidden">
+                      <Image
+                        src={`https:${imageUrl}`}
+                        alt={name}
+                        fill
+                        sizes="auto"
+                        className="rounded-lg"
+                      />
+                    </div>
+                    <div className="info w-full flex flex-col items-start px-8 gap-2">
+                      <h2 className="text-xl font-semibold text-gray-800 text-center">
+                        {name}
+                      </h2>
+                      <div className="rating flex">
+                        {Array.from({ length: 5 }, (_, index) => (
+                          <span
+                            key={index}
+                            className={
+                              index < rating
+                                ? "text-yellow-500"
+                                : "text-gray-400"
+                            }
                           >
-                            <BsBasket2 size={20} />
-                          </button>
-                        </div>
+                            ★
+                          </span>
+                        ))}
+                      </div>
+                      <div className="price flex justify-between w-full items-center">
+                        <p className="text-lg text-purple-900 mb-2 font-bold">
+                          ${price.toFixed(2)}
+                        </p>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleAddToCart({
+                              id,
+                              name,
+                              image: imageUrl,
+                              price,
+                              rating,
+                              quantity: 1,
+                            });
+                          }}
+                          className="icon rounded-full bg-gray-200 text-black w-10 h-10 flex items-center justify-center cursor-pointer"
+                        >
+                          <BsBasket2 size={20} />
+                        </button>
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 );
               }
             })
@@ -126,30 +177,59 @@ export default function Menu() {
         <div className="modal">
           <div className="modal-content">
             <span className="close" onClick={closeModal}>&times;</span>
-            {selectedItem && (
+            {selectedItem ? (
               <>
-                <h1 className="text-3xl font-bold">{selectedItem.fields.name}</h1>
+                <h1 className={`text-3xl font-bold ${PrincessSofia.className}`}>
+                  {selectedItem.name}
+                </h1>
                 <img
-                  src={`https:${selectedItem.fields.image.fields.file.url}`}
-                  alt={selectedItem.fields.name}
+                  src={`https:${selectedItem.image}`}
+                  alt={selectedItem.name}
                   className="w-64 h-64 object-cover"
                 />
-                <p className="text-lg text-gray-700">{selectedItem.fields.description}</p>
-                <p className="text-xl text-green-600">${selectedItem.fields.price.toFixed(2)}</p>
+                {/* <p className={`text-lg text-gray-700 ${PrincessSofia.className}`}>{selectedItem.description}</p> */}
+                <p className={`text-xl text-green-600 ${PrincessSofia.className}`}>${selectedItem.price.toFixed(2)}</p>
+                
+                <div className="rating flex">
+                  {Array.from({ length: 5 }, (_, index) => (
+                    <span
+                      key={index}
+                      className={
+                        index < selectedItem.rating
+                          ? "text-yellow-500"
+                          : "text-gray-400"
+                      }
+                    >
+                      ★
+                    </span>
+                  ))}
+                </div>
+                
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {selectedItem.ingredients?.map((ingredient: string, index: number) => (
+                    <span 
+                      key={index} 
+                      className={`px-3 py-1 rounded-full text-white text-sm font-semibold ${getIngredientColor(ingredient)}`}
+                    >
+                      {ingredient}
+                    </span>
+                  ))}
+                </div>
+
                 <button 
                   className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" 
                   onClick={closeModal}
                 >
-                  Cerrar
+                  Close
                 </button>
-                <Link href={`/menu/${selectedItem.fields.id}`}>
-                  <button 
-                    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" 
-                  >
-                    Ver Detalles
+                <Link href={`/menu/${selectedItem.id}`} onClick={(e) => e.stopPropagation()}>
+                  <button className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                    View Details
                   </button>
                 </Link>
               </>
+            ) : (
+              <div>Loading...</div>
             )}
           </div>
         </div>
