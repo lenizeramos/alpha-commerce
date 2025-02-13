@@ -9,9 +9,9 @@ import CTA from "./components/CTA";
 import { SignedOut, SignedIn } from "@clerk/nextjs";
 import Link from "next/link";
 import { decoration } from "../../public/variables";
+import RandomDishes from "./components/RandomDishes";
 
 import { Gowun_Dodum, Mali } from "next/font/google";
-import RandomDishes from "./components/RandomDishes";
 const textTitle = Gowun_Dodum({
   weight: "400",
   style: "normal",

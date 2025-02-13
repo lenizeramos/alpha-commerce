@@ -59,7 +59,7 @@ body {
   transform: rotate(81deg);
 }
 
-.price {
+.priceRa {
   -webkit-box-shadow: -6px 14px 24px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -6px 14px 24px 0px rgba(0, 0, 0, 0.75);
   box-shadow: -6px 14px 24px 0px rgba(0, 0, 0, 0.75);

@@ -67,7 +67,7 @@ const RandomDishes = () => {
                       className="rounded-full ml-10 border border-[#444242] imgRa"
                     />
                     <p
-                      className={`${textFont.className} price text-xl rounded-full bg-[#E3DAC9] w-16 h-16 text-center pt-3 z-50 border border-[#565554]`}
+                      className={`${textFont.className} priceRa text-xl rounded-full bg-[#E3DAC9] w-16 h-16 text-center pt-3 z-50 border border-[#565554]`}
                     >
                       ${price}
                     </p>

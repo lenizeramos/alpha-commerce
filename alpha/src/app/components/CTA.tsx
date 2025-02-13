@@ -1,4 +1,5 @@
 import { Delicious_Handrawn } from "next/font/google";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LuBadgePlus } from "react-icons/lu";
 
@@ -17,12 +18,13 @@ const CTA = ({ text, icon }: ICTA) => {
   return (
     <>
       {icon ? (
-        <LuBadgePlus
-          size={30}
-          color="#ea6d27"
-          onClick={() => router.push("/sign-in")}
-          className="cursor-pointer"
-        />
+        <Link href="/menu" >
+          <LuBadgePlus
+            size={30}
+            color="#ea6d27"
+            className="cursor-pointer"
+          />
+        </Link>
       ) : (
         <button
           onClick={() => router.push("/sign-in")}

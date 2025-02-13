@@ -24,7 +24,7 @@ const Filters = ({ category, setCategory }: IFilters) => {
                 alt={menu.name}
                 width={100}
                 height={100}
-                className={`cursor-pointer rounded-[50%] transition duration-200 ${category === menu.name ? 'border-[4px] border-purple-900 p-[2px]': ''}`}
+                className={`cursor-pointer rounded-[50%] transition duration-200 ${category === menu.name ? 'border-[4px] border-orange-800 p-[2px]': ''}`}
               />
               <p className="text-[#747474] mt-3 text-[max(1.4vw,1rem)]">
                 {menu.name}
