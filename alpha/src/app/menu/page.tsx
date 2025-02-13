@@ -61,7 +61,7 @@ export default function Menu() {
       "Vanilla Extract": "bg-yellow-400"
     };
     
-    return colorMap[ingredient] || "bg-gray-400"; // Color por defecto
+    return colorMap[ingredient] || "bg-gray-400"; 
   };
 
   useEffect(() => {
@@ -176,9 +176,14 @@ export default function Menu() {
       {isModalOpen && (
         <div className="modal">
           <div className="modal-content">
-            <span className="close" onClick={closeModal}>&times;</span>
             {selectedItem ? (
               <>
+                <button 
+                  className="close-button" 
+                  onClick={closeModal}
+                >
+                  X
+                </button>
                 <h1 className={`text-3xl font-bold ${PrincessSofia.className}`}>
                   {selectedItem.name}
                 </h1>
@@ -216,14 +221,8 @@ export default function Menu() {
                   ))}
                 </div>
 
-                <button 
-                  className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" 
-                  onClick={closeModal}
-                >
-                  Close
-                </button>
                 <Link href={`/menu/${selectedItem.id}`} onClick={(e) => e.stopPropagation()}>
-                  <button className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                  <button className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600">
                     View Details
                   </button>
                 </Link>
