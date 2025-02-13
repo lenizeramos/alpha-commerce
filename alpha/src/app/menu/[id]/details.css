@@ -1,0 +1,13 @@
+.review {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.large {
+  transform: scale(1.1); /* Aumenta el tamaño de la reseña activa */
+  opacity: 1; /* Asegúrate de que la reseña activa sea completamente visible */
+}
+
+.small {
+  transform: scale(0.9); /* Reduce el tamaño de las reseñas no activas */
+  opacity: 0.7; 
+}

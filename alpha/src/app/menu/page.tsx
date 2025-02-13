@@ -185,13 +185,13 @@ export default function Menu() {
                 >
                   X
                 </button>
-                <h1 className={`text-3xl font-bold ${PrincessSofia.className}`}>
+                <h1 className={`text-3xl font-bold modal-name ${PrincessSofia.className}`}>
                   {selectedItem.name}
                 </h1>
                 <img
                   src={`https:${selectedItem.image}`}
                   alt={selectedItem.name}
-                  className="w-64 h-64 object-cover"
+                  className="w-64 h-64 object-cover modal-img"
                 />
                 {/* <p className={`text-lg text-gray-700 ${PrincessSofia.className}`}>{selectedItem.description}</p> */}
                 <p className={`text-xl text-green-600 ${PrincessSofia.className}`}>${selectedItem.price.toFixed(2)}</p>
@@ -215,7 +215,7 @@ export default function Menu() {
                   {selectedItem.ingredients?.map((ingredient: string, index: number) => (
                     <span 
                       key={index} 
-                      className={`px-3 py-1 rounded-full text-white text-sm font-semibold ${getIngredientColor(ingredient)}`}
+                      className={`px-3 py-1 rounded-full modal-ingredients text-white text-sm font-semibold ${getIngredientColor(ingredient)}`}
                     >
                       {ingredient}
                     </span>
@@ -223,7 +223,7 @@ export default function Menu() {
                 </div>
 
                 <Link href={`/menu/${selectedItem.id}`} onClick={(e) => e.stopPropagation()}>
-                  <button className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600">
+                  <button className="rounded-full details-btn">
                     View Details
                   </button>
                 </Link>

@@ -31,6 +31,26 @@
   padding: 0.3rem 0;
   text-align: end;
   padding-right: 1rem;
+  color: #efeee9;
+  font-weight: 900;
+}
+
+.close-button:hover {
+    background-color: #b8adc0;
+}
+
+.modal-name {
+    margin: 1rem 0;
+    font-size: 34px;
+    font-weight: 500;
+}
+
+.modal-img {
+    margin: 1rem 0;
+}
+
+.modal-ingredients {
+    margin: 1rem 0;
 }
 
 button {
@@ -42,4 +62,13 @@ button {
   transition: background-color 0.3s; 
 }
 
+.details-btn {
+    background-color: #8a729e;
+    padding: 0.4rem 1rem;
+    margin: 2rem 0;
+    color: #efeee9
+}
 
+.details-btn:hover {
+    background-color: #b8adc0;
+}
