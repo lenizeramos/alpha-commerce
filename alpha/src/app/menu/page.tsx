@@ -110,6 +110,7 @@ export default function Menu() {
                           quantity: 1,
                           description,
                           ingredients: entry.fields.ingredients?.map((ingredient: any) => ingredient.fields.name) || [],
+                          comments: entry.fields.comments?.map((comment: any) => comment.fields.comment) || [],
                         });
                         setIsModalOpen(true);
                       }}
