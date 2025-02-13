@@ -9,7 +9,7 @@ import { fetchData } from "../context/slices/DataSlice";
 import Link from "next/link";
 import CartAnimation from "../components/CartAnimation";
 import { addToCart } from "../context/slices/CartSlice";
-import { CartItem } from "../types/SliceTypes";
+import { CartItem, DataState } from "../types/SliceTypes";
 import Filters from "../components/Filters";
 
 const PrincessSofia = Princess_Sofia({
@@ -19,7 +19,7 @@ const PrincessSofia = Princess_Sofia({
 
 export default function Menu() {
   const dispatch: AppDispatch = useDispatch();
-  const { data } = useSelector((state: RootState) => state.data);
+  const { data, loading, error } = useSelector((state: RootState) => state.data as DataState);
   const [filter, setFilter] = useState<string>("All");
 
   const [showAnimation, setShowAnimation] = useState<boolean>(false);
