@@ -12,14 +12,13 @@ const DetailsPage = () => {
   const { data, loading, error } = useSelector((state: RootState) => state.data);
   const [item, setItem] = useState<any>(null);
 
-  // 🔹 Cargar datos si aún no están en Redux
   useEffect(() => {
     if (data.length === 0) {
       dispatch(fetchData());
     }
   }, [dispatch, data.length]);
 
-  // 🔹 Esperar hasta que los datos estén disponibles para buscar el ítem
+  
   useEffect(() => {
     if (data.length > 0) {
       const selectedItem = data.find((entry) => String(entry.fields.id) === String(id));
@@ -27,9 +26,9 @@ const DetailsPage = () => {
     }
   }, [id, data]);
 
-  if (loading) return <p>Cargando datos...</p>;
+  if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
-  if (!item) return <p>El ítem no fue encontrado.</p>;
+  if (!item) return <p>Item not found.</p>;
 
   return (
     <div className="container mx-auto p-6">

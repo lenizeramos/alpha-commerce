@@ -3,10 +3,11 @@ import Image from "next/image";
 import { BsBasket2 } from "react-icons/bs";
 import { Princess_Sofia } from "next/font/google";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { RootState, AppDispatch } from "../context/store";
 import { fetchData } from "../context/slices/DataSlice";
 import Link from "next/link";
+import "./menu.css";
 
 const PrincessSofia = Princess_Sofia({
   weight: "400",
@@ -18,12 +19,39 @@ export default function Menu() {
   const { data, loading, error } = useSelector(
     (state: RootState) => state.data
   );
+  const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     if (data.length === 0) {
       dispatch(fetchData());
     }
   }, [dispatch, data.length]);
+
+  const openModal = (item: any) => {
+    setSelectedItem(item);
+    setIsModalOpen(true);
+    window.history.pushState(null, '', `/menu/${item.fields.id}`);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedItem(null);
+    window.history.pushState(null, '', '/menu');
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      closeModal();
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
+
   return (
     <>
       <div
@@ -36,7 +64,7 @@ export default function Menu() {
             const imageUrl = image?.fields?.file.url || "";
 
             return (
-              <Link key={id} href={`/menu/${id}`}>
+              <div key={id} onClick={(e) => { e.stopPropagation(); openModal(entry); }}>
                 <div
                   className="containerItem flex flex-col items-center justify-center bg-white pb-8 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
                 >
@@ -69,13 +97,46 @@ export default function Menu() {
                     </div>
                   </div>
                 </div>
-              </Link>
+              </div>
             );
           })
         ) : (
           <div className="text-center">No items available</div>
         )}
       </div>
+
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={closeModal}>&times;</span>
+            {selectedItem && (
+              <>
+                <h1 className="text-3xl font-bold">{selectedItem.fields.name}</h1>
+                <img
+                  src={`https:${selectedItem.fields.image.fields.file.url}`}
+                  alt={selectedItem.fields.name}
+                  className="w-64 h-64 object-cover"
+                />
+                <p className="text-lg text-gray-700">{selectedItem.fields.description}</p>
+                <p className="text-xl text-green-600">${selectedItem.fields.price.toFixed(2)}</p>
+                <button 
+                  className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" 
+                  onClick={closeModal}
+                >
+                  Cerrar
+                </button>
+                <Link href={`/menu/${selectedItem.fields.id}`}>
+                  <button 
+                    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" 
+                  >
+                    Ver Detalles
+                  </button>
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </>
   );
 }

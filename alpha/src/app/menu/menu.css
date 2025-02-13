@@ -1,0 +1,38 @@
+/* Estilos para el modal */
+.modal {
+  position: fixed; /* Fija el modal en la pantalla */
+  top: 0; /* Alinea el modal en la parte superior */
+  left: 0; /* Alinea el modal a la izquierda */
+  width: 100%; /* Ancho completo */
+  height: 100%; /* Altura completa */
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  display: flex; /* Usar flexbox para centrar el contenido */
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  z-index: 1000; /* Asegúrate de que el modal esté por encima de otros elementos */
+}
+
+.modal-content {
+  background-color: white; /* Fondo blanco para el contenido del modal */
+  padding: 20px; /* Espaciado interno */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+  max-width: 500px; /* Ancho máximo del modal */
+  width: 90%; /* Ancho del modal en dispositivos pequeños */
+}
+
+.close {
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón de cerrar */
+  font-size: 24px; /* Tamaño de la fuente para el botón de cerrar */
+  position: absolute; /* Posiciona el botón de cerrar */
+  top: 10px; /* Espaciado desde la parte superior */
+  right: 15px; /* Espaciado desde la derecha */
+}
+
+/* Estilos para el botón de cerrar */
+button {
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Bordes redondeados */
+  transition: background-color 0.3s; /* Transición suave para el color de fondo */
+}
