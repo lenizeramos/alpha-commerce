@@ -10,7 +10,7 @@ const Filters = ({ category, setCategory }: IFilters) => {
   return (
     <>
       <div
-        className="flex justify-start items-center gap-2 text-center mx-5 w-full max-w-6xl overflow-x-auto whitespace-nowrap"
+        className="flex justify-between items-center gap-2 text-center mx-5 w-full max-w-6xl overflow-x-auto"
         id="filter-container"
       >
         {menu_list.map((menu, index) => {
@@ -20,7 +20,7 @@ const Filters = ({ category, setCategory }: IFilters) => {
               onClick={() =>
                 setCategory((prev) => (prev === menu.name ? "All" : menu.name))
               }
-              className="inline-block cursor-pointer"
+              className="cursor-pointer"
             >
               <div className="w-[5rem]">
                 <Image

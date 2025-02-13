@@ -10,8 +10,8 @@ import CartAnimation from "../components/CartAnimation";
 import { addToCart } from "../context/slices/CartSlice";
 import { CartItem } from "../types/SliceTypes";
 import Filters from "../components/Filters";
-import { Tomorrow, Mali } from "next/font/google";
 import { PiMaskSadLight } from "react-icons/pi";
+import { Tomorrow, Mali } from "next/font/google";
 const textTitle = Tomorrow({
   weight: "400",
   style: "normal",

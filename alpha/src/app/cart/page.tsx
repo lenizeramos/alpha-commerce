@@ -3,12 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../context/store";
 import { removeFromCart, clearCart, increaseQuantity, decreaseQuantity } from "../context/slices/CartSlice";
 import Image from "next/image";
-import { Princess_Sofia } from "next/font/google";
 import { useState } from "react";
-
-const PrincessSofia = Princess_Sofia({
+import { Tomorrow, Mali } from "next/font/google";
+const textTitle = Tomorrow({
   weight: "400",
-  subsets: ["latin"],
+  style: "normal",
+});
+const textFont = Mali({
+  weight: "400",
+  style: "normal",
 });
 
 export default function Cart() {
@@ -38,7 +41,7 @@ export default function Cart() {
   };
 
   return (
-    <div className={`max-w-4xl mx-auto py-8 ${PrincessSofia.className}`}>
+    <div className={`max-w-4xl mx-auto py-8 ${textFont.className}`}>
       <h1 className="text-3xl font-bold text-center mb-6">Shopping Cart</h1>
 
       {cartItems.length === 0 ? (
