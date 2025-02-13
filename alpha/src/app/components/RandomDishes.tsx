@@ -6,6 +6,7 @@ import Image from "next/image";
 import { fetchData } from "../context/slices/DataSlice";
 
 import { Gowun_Dodum, Mali } from "next/font/google";
+import CTA from "./CTA";
 const textFont = Mali({
   weight: "400",
   style: "normal",
@@ -19,12 +20,12 @@ const RandomDishes = () => {
   const dispatch: AppDispatch = useDispatch();
   const { data } = useSelector((state: RootState) => state.data);
 
-  const element: number[] = [];
-  for (let i = 0; i < 3; i++) {
-    const randomIndex = Math.floor(Math.random() * data.length) + i;
-    element.push(randomIndex);
-  }
-  console.log("my indexes", data[element[0]]);
+  const shuffled = data
+    .map((item, index) => index)
+    .sort(() => Math.random() - 0.5);
+
+  const dishes = shuffled.slice(0, 3);
+
   useEffect(() => {
     if (!data.length) {
       dispatch(fetchData());
@@ -34,13 +35,18 @@ const RandomDishes = () => {
   return (
     <>
       <div className="mainContainer flex flex-col items-center justify-center mt-2 gap-10 sm:gap-16 p-8">
-        <h3 className={`${textFont.className} text-3xl sm:text-5xl text-center`}>
-          Our Special Dishes
-        </h3>
+        <div className="flex items-center gap-5">
+          <h3
+            className={`${textFont.className} text-3xl sm:text-5xl text-center`}
+          >
+            Our Special Dishes
+          </h3>
+          <CTA icon={true} />
+        </div>
         <div className="dishesContainer flex flex-wrap justify-center gap-24">
           {data.length > 0 ? (
-            element.map((item, index) => {
-              const entry = data[item];
+            dishes.map((dish, index) => {
+              const entry = data[dish];
               const { name, image, price } = entry.fields;
               const imgUrl = image?.fields?.file.url || "";
               return (
@@ -58,10 +64,10 @@ const RandomDishes = () => {
                       src={`https:${imgUrl}`}
                       alt={name}
                       layout="fill"
-                      className="rounded-full ml-10 border border-[#444242]"
+                      className="rounded-full ml-10 border border-[#444242] imgRa"
                     />
                     <p
-                      className={`${textFont.className} imgRandom text-xl rounded-full bg-[#E3DAC9] w-16 h-16 text-center pt-3 z-50 border border-[#565554]`}
+                      className={`${textFont.className} price text-xl rounded-full bg-[#E3DAC9] w-16 h-16 text-center pt-3 z-50 border border-[#565554]`}
                     >
                       ${price}
                     </p>

@@ -59,10 +59,16 @@ body {
   transform: rotate(81deg);
 }
 
-.imgRandom {
+.price {
   -webkit-box-shadow: -6px 14px 24px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -6px 14px 24px 0px rgba(0, 0, 0, 0.75);
   box-shadow: -6px 14px 24px 0px rgba(0, 0, 0, 0.75);
+}
+
+.imgRa {
+  -webkit-box-shadow: 8px 14px 24px 0px rgba(86, 85, 84, 1);
+  -moz-box-shadow: 8px 14px 24px 0px rgba(86, 85, 84, 1);
+  box-shadow: 8px 14px 24px 0px rgba(86, 85, 84, 1);
 }
 
 @media only screen and (max-width: 1380px) {
