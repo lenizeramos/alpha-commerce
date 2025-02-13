@@ -1,70 +1,99 @@
 "use client";
-import {
-  SignInButton,
-  SignOutButton,
-  SignedIn,
-  SignedOut,
-} from "@clerk/nextjs";
+import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
+import CTA from "./CTA";
+import { GiExitDoor } from "react-icons/gi";
+import Image from "next/image";
+
+import { Ephesis, Tomorrow } from "next/font/google";
+const textTitle = Ephesis({
+  weight: "400",
+  style: "normal",
+});
+
+const textNav = Tomorrow({
+  weight: "400",
+  style: "normal",
+});
 
 const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "Menu", href: "/menu" },
-  { name: "Cart", href: "/cart" },
+  { name: "Home", href: "/", protectedUrl: false },
+  { name: "Menu", href: "/menu", protectedUrl: true },
+  { name: "Cart", href: "/cart", protectedUrl: true },
 ];
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [menu, setMenu ] = useState('home')
   const pathname = usePathname();
+  const { signOut, user } = useClerk();
+  const router = useRouter();
 
   const handleMenuToggle = () => {
     setIsOpen((prevState) => !prevState);
   };
 
-  const closeMenu = () => {
-    setIsOpen(false);
+  const handleSignOut = () => {
+    signOut();
   };
 
+  const handleLinkClick = (href: string, protectedUrl: boolean, name:string) => {
+    if (!user && protectedUrl) {
+      router.push("/sign-in");
+    } else {
+      router.push(href);
+    }
+    setIsOpen(false);
+    setMenu(name)
+  };
   return (
-    <nav className="bg-[#d5d7d8] shadow-md fixed w-full z-10">
+    <nav className="bg-[#f4f4f3] shadow-md fixed w-full z-10 text-[#311a37]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
-          <Link href="/" className="text-xl font-bold text-gray-900">
-            Alpha
+          <Link
+            href="/"
+            className={`text-shadow flex items-center text-[2.5rem] sm:text-5xl font-bold ${textTitle.className} sm:gap-4`}
+          >
+            <Image src={"/logo1.png"} width={50} height={50} alt="logo" className="pb-2"/>
+            Alpha Bites
           </Link>
           <div className="hidden md:flex space-x-6 justify-center items-center">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-gray-900 hover:text-gray-500 transition-colors"
-                aria-current={pathname === link.href ? "page" : undefined}
-                onClick={closeMenu}
-              >
-                {link.name}
-              </Link>
-            ))}
+            {navLinks.map(
+              (link) =>
+                pathname !== link.href && (
+                  <button
+                    key={link.href}
+                    className={`hover:text-[#ea6d27] transition-colors ${textNav.className} ${menu === link.name ? 'text-orange-400 text-lg' : ''}`}
+                    onClick={() =>
+                      handleLinkClick(link.href, link.protectedUrl, link.name)
+                    }
+                  >
+                    {link.name}
+                  </button>
+                )
+            )}
 
-            <Link href="#">
-              <p>CALL TO ACTION???</p>
-            </Link>
             <div>
               <SignedOut>
-                <SignInButton />
+                <CTA text='TAKEOUT!'/>
               </SignedOut>
 
               <SignedIn>
-                <SignOutButton />
+                <GiExitDoor
+                  size={35}
+                  onClick={handleSignOut}
+                  className="cursor-pointer hover:text-[#ea6d27]"
+                />
               </SignedIn>
             </div>
           </div>
 
           <button
-            className="md:hidden text-gray-700 dark:text-white"
+            className="md:hidden text-gray-700 dark:text-[#311a37]"
             onClick={handleMenuToggle}
             aria-label="Toggle menu"
           >
@@ -74,32 +103,42 @@ function Navbar() {
       </div>
 
       <div
-        className={`md:hidden bg-[#d5d7d8] p-4 flex flex-col items-center space-y-4 transition-all duration-300 ease-in-out transform ${
+        className={`md:hidden bg-[#d5d7d8] flex flex-col items-center gap-2 transition-all duration-300 ease-in-out transform ${textNav.className} ${
           isOpen
-            ? "max-h-screen opacity-100 translate-y-0"
+            ? "max-h-screen opacity-100 translate-y-0 pb-3"
             : "max-h-0 opacity-0 translate-y-5"
-        } overflow-hidden`}
+        } overflow-hidden `}
       >
-        {navLinks.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className="  text-center py-2 text-gray-900 hover:text-gray-500 transition-colors"
-            onClick={closeMenu}
-          >
-            {link.name}
-          </Link>
-        ))}
-        <Link href="" onClick={closeMenu}>
-          <p>CALL TO ACTION???</p>
-        </Link>
+        {navLinks.map(
+          (link) =>
+            pathname !== link.href && (
+              <button
+                key={link.href}
+                className={`text-center py-2 text-gray-900 hover:text-[#ea6d27] transition-colors ${menu === link.name ? 'text-orange-400' : ''}`}
+                onClick={() => handleLinkClick(link.href, link.protectedUrl, link.name)}
+              >
+                {link.name}
+              </button>
+            )
+        )}
         <div>
           <SignedOut>
-            <SignInButton />
+            <div
+              onClick={() => {
+                console.log("YYYYYY");
+                setIsOpen(false);
+              }}
+            >
+              <CTA text='TAKEOUT!'/>
+            </div>
           </SignedOut>
 
           <SignedIn>
-            <SignOutButton />
+            <GiExitDoor
+              size={35}
+              onClick={handleSignOut}
+              className="cursor-pointer hover:text-[#ea6d27]"
+            />
           </SignedIn>
         </div>
       </div>
