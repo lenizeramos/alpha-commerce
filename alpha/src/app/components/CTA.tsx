@@ -6,6 +6,7 @@ import { useClerk } from "@clerk/nextjs";
 const delicious = Delicious_Handrawn({
   weight: "400",
   style: "normal",
+  subsets: ["latin"],
 });
 
 interface ICTA {

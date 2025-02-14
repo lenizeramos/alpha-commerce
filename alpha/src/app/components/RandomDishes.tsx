@@ -10,10 +10,12 @@ import CTA from "./CTA";
 const textFont = Mali({
   weight: "400",
   style: "normal",
+  subsets: ["latin"],
 });
 const textTitle = Gowun_Dodum({
   weight: "400",
   style: "normal",
+  subsets: ["latin"],
 });
 
 const RandomDishes = () => {
@@ -30,7 +32,7 @@ const RandomDishes = () => {
     if (!data.length) {
       dispatch(fetchData());
     }
-  }, [dispatch]);
+  }, [dispatch, data.length]);
 
   return (
     <>

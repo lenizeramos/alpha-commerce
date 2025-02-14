@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
@@ -10,6 +9,7 @@ import { useRouter } from "next/navigation";
 const textFont = Mali({
   weight: "400",
   style: "normal",
+  subsets: ["latin"],
 });
 
 const Footer = () => {
@@ -70,8 +70,8 @@ const Footer = () => {
             © 2025 Alpha Bites. All Right Reserved. Designed by AlphaTeam
           </p>
           <div className="flex sm:gap-5 justify-center sm:justify-start text-center gap-4 ">
-            <p>Terms of Service</p>
-            <p>Privacy Policy</p>
+            <p className="hover:text-gray-800 cursor-pointer">Terms of Service</p>
+            <p className="hover:text-gray-800 cursor-pointer">Privacy Policy</p>
           </div>
         </div>
       </div>

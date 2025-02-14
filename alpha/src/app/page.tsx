@@ -16,10 +16,12 @@ import { Gowun_Dodum, Mali } from "next/font/google";
 const textTitle = Gowun_Dodum({
   weight: "400",
   style: "normal",
+  subsets: ["latin"],
 });
 const textFont = Mali({
   weight: "400",
   style: "normal",
+  subsets: ["latin"],
 });
 
 export default function Home() {

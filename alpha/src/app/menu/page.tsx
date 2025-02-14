@@ -8,17 +8,19 @@ import { fetchData } from "../context/slices/DataSlice";
 import Link from "next/link";
 import CartAnimation from "../components/CartAnimation";
 import { addToCart } from "../context/slices/CartSlice";
-import { CartItem } from "../types/SliceTypes";
+import { CartItem, DataItem } from "../types/SliceTypes";
 import Filters from "../components/Filters";
 import { PiMaskSadLight } from "react-icons/pi";
 import { Tomorrow, Mali } from "next/font/google";
 const textTitle = Tomorrow({
   weight: "400",
   style: "normal",
+  subsets: ["latin"],
 });
 const textFont = Mali({
   weight: "400",
   style: "normal",
+  subsets: ["latin"],
 });
 
 export default function Menu() {
@@ -104,9 +106,9 @@ export default function Menu() {
           className={`ContainerMenu grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full max-w-6xl mx-auto py-8 ${textTitle.className}`}
         >
           {data.length > 0 ? (
-            data.map((entry: any) => {
-              const { id, name, image, price, description, category, rating } =
-                entry.fields as any;
+            data.map((entry: DataItem) => {
+              const { id, name, image, price, category, rating } =
+                entry.fields;
               const imageUrl = image?.fields?.file.url || "";
               if (filter === "All" || category === filter) {
                 return (

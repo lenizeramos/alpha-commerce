@@ -3,7 +3,7 @@ import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import CTA from "./CTA";
 import { GiExitDoor } from "react-icons/gi";
@@ -14,11 +14,13 @@ import { Ephesis, Tomorrow } from "next/font/google";
 const textTitle = Ephesis({
   weight: "400",
   style: "normal",
+  subsets: ["latin"],
 });
 
 const textNav = Tomorrow({
   weight: "400",
   style: "normal",
+  subsets: ["latin"],
 });
 
 const navLinks = [
@@ -28,8 +30,7 @@ const navLinks = [
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [menu, setMenu] = useState("home");
-  // const pathname = usePathname();
+  const pathname = usePathname();
   const { signOut, user } = useClerk();
   const router = useRouter();
 
@@ -41,18 +42,13 @@ function Navbar() {
     signOut();
   };
 
-  const handleLinkClick = (
-    href: string,
-    protectedUrl: boolean,
-    name: string
-  ) => {
+  const handleLinkClick = (href: string, protectedUrl: boolean) => {
     if (!user && protectedUrl) {
       router.push("/sign-in");
     } else {
       router.push(href);
     }
     setIsOpen(false);
-    setMenu(name);
   };
   return (
     <nav className="bg-[#f4f4f3] shadow-md fixed w-full z-10 text-[#311a37]">
@@ -77,10 +73,8 @@ function Navbar() {
                 key={link.href}
                 className={`hover:text-[#ea6d27] transition-colors ${
                   textNav.className
-                } ${menu === link.name ? "text-orange-400 text-lg" : ""}`}
-                onClick={() =>
-                  handleLinkClick(link.href, link.protectedUrl, link.name)
-                }
+                } ${pathname === link.href ? "text-orange-400 text-lg" : ""}`}
+                onClick={() => handleLinkClick(link.href, link.protectedUrl)}
               >
                 {link.name}
               </button>
@@ -88,9 +82,9 @@ function Navbar() {
             <BsBasket2Fill
               size={25}
               className={`cursor-pointer hover:text-[#ea6d27] ${
-                menu === "Cart" ? "text-orange-400" : ""
+                pathname === "/cart" ? "text-orange-400" : ""
               }`}
-              onClick={() => handleLinkClick("/cart", true, "Cart")}
+              onClick={() => handleLinkClick("/cart", true)}
             />
             <div>
               <SignedOut>
@@ -130,19 +124,19 @@ function Navbar() {
           <button
             key={link.href}
             className={`text-center py-2 text-gray-900 hover:text-[#ea6d27] transition-colors ${
-              menu === link.name ? "text-orange-400" : ""
+              pathname === link.href ? "text-orange-400" : ""
             }`}
-            onClick={() =>
-              handleLinkClick(link.href, link.protectedUrl, link.name)
-            }
+            onClick={() => handleLinkClick(link.href, link.protectedUrl)}
           >
             {link.name}
           </button>
         ))}
         <BsBasket2Fill
           size={25}
-          className="cursor-pointer hover:text-[#ea6d27]"
-          onClick={() => handleLinkClick("/cart", true, "Cart")}
+          className={`cursor-pointer hover:text-[#ea6d27] ${
+            pathname === "/cart" ? "text-orange-400" : ""
+          }`}
+          onClick={() => handleLinkClick("/cart", true)}
         />
         <div>
           <SignedOut>
