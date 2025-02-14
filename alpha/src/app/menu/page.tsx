@@ -347,8 +347,7 @@ export default function Menu() {
                 <IoMdCloseCircle
                   size={25}
                   onClick={closeModal}
-                  color="#a35e27"
-                  className="cursor-pointer self-end"
+                  className="cursor-pointer text-[#693618] hover:text-[#ea6d27] self-end"
                 />
                 <h1
                   className={`text-3xl font-bold modal-name ${textTitle.className} text-orange-900`}
