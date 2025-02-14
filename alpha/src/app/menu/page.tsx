@@ -107,8 +107,7 @@ export default function Menu() {
         >
           {data.length > 0 ? (
             data.map((entry: DataItem) => {
-              const { id, name, image, price, category, rating } =
-                entry.fields;
+              const { id, name, image, price, category, rating } = entry.fields;
               const imageUrl = image?.fields?.file.url || "";
               if (filter === "All" || category === filter) {
                 return (
@@ -171,7 +170,11 @@ export default function Menu() {
           ) : (
             <div className="md:text-7xl text-orange-800 w-92 md:absolute md:left-96 text-5xl">
               <h1 className="text-center">No items available</h1>
-              <PiMaskSadLight size={100} color="#9a3412" className="md:absolute md:left-64"/>
+              <PiMaskSadLight
+                size={100}
+                color="#9a3412"
+                className="md:absolute md:left-64"
+              />
             </div>
           )}
         </div>

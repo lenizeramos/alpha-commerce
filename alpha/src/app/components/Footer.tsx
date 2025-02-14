@@ -26,7 +26,7 @@ const Footer = () => {
   return (
     <>
       <div className={`${textFont.className} bg-white pt-32 px-10 pb-5`}>
-        <div className="border-b border-b-gray-400 grid grid-cols-1 md:grid-cols-[3fr_2fr_1fr] gap-5 items-start mb-3 text-gray-400 sm:text-sm text-xs">
+        <div className="border-b border-b-gray-400 grid grid-cols-1 md:grid-cols-[3fr_2fr_1fr] gap-5 items-start mb-3 pb-3 text-gray-400 sm:text-sm text-xs">
           <div>
             <h3 className="font-bold mb-3 text-gray-800">OPENING HOURS</h3>
             <div className="grid grid-cols-2">

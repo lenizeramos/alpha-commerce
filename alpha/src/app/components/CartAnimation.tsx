@@ -9,7 +9,7 @@ export default function FallingProduct() {
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
 
     <motion.div
-        className="absolute w-96 h-96 bg-green-200 rounded-full z-0"
+        className="absolute w-96 h-96 bg-[#f5ebda] rounded-full z-0"
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.1 }}
