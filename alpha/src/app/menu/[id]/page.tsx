@@ -12,6 +12,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./details.css";
 import { Princess_Sofia } from "next/font/google";
+import { getIngredientColor } from "@/app/components/Ingredients";
 
 const PrincessSofia = Princess_Sofia({
   weight: "400",
@@ -52,7 +53,19 @@ const DetailsPage = () => {
             />
             </div>
             <div className="details">
-                <h1 className={`text-5xl mb-5 font-bold ${PrincessSofia.className}`}>{item.fields.name}</h1>
+                <h1 className={`text-5xl mb-8 font-bold ${PrincessSofia.className}`}>{item.fields.name}</h1>
+                <div className="ingredients-container">
+                    <div className="mb-2 flex ingredients flex-wrap gap-2">
+                        {item.fields.ingredients?.map((ingredient: any, index: number) => (
+                            <span 
+                                key={index} 
+                                className={`px-3 py-1 rounded-full text-white text-sm font-semibold ${getIngredientColor(ingredient.fields.name)}`}
+                            >
+                                {ingredient.fields.name}
+                            </span>
+                        ))}
+                    </div>
+                </div>
                 <p className={`text-lg text-justify mb-5 text-gray-700`}>{item.fields.description}</p>
                 <p className={`text-2xl text-green-600 ${PrincessSofia.className}`}>${item.fields.price.toFixed(2)}</p>
 
@@ -72,7 +85,7 @@ const DetailsPage = () => {
                         {item.fields.comments.map((review: any, index: number) => (
                             <SwiperSlide key={index}>
                             <div className="bg-white shadow-lg p-6 rounded-lg text-center w-80 mx-auto">
-                                <h3 className="text-xl font-semibold text">{review.fields.title}</h3>
+                                <h3 className="text-xl font-semibold text mb-2">{review.fields.title}</h3>
                                 <p className="text-gray-700">{review.fields.comment}</p>
                                 <p className="text-sm text-gray-500 mt-2 italic mb-1">
                                 {new Date(review.fields.date).toLocaleDateString()}
