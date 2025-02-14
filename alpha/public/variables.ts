@@ -14,3 +14,14 @@ export const decoration = [
   { img: "/decoration/img2.png", styles: "position-img2" },
   { img: "/decoration/img3.png", styles: "position-img3" },
 ];
+
+export const decorationMenu = [
+  {img:"/decoration/img5.png", styles:''},
+  {img:"/decoration/img6.png", styles:''},
+  {img:"/decoration/img7.png", styles:''},
+  {img:"/decoration/img8.png", styles:''},
+  {img:"/decoration/img9.png", styles:''},
+  {img:"/decoration/img10.png", styles:''},
+  {img:"/decoration/img11.png", styles:''},
+  {img:"/decoration/img12.png", styles:''},
+]
