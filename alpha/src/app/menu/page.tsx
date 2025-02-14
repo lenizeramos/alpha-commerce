@@ -10,6 +10,7 @@ import CartAnimation from "../components/CartAnimation";
 import { addToCart } from "../context/slices/CartSlice";
 import { CartItem, DataItem } from "../types/SliceTypes";
 import Filters from "../components/Filters";
+import { motion } from "framer-motion";
 import { PiMaskSadLight } from "react-icons/pi";
 import { Tomorrow, Mali } from "next/font/google";
 const textTitle = Tomorrow({
@@ -27,6 +28,7 @@ export default function Menu() {
   const dispatch: AppDispatch = useDispatch();
   const { data } = useSelector((state: RootState) => state.data);
   const [filter, setFilter] = useState<string>("All");
+  const [isLoading, setIsLoading] = useState(true);
 
   const [showAnimation, setShowAnimation] = useState<boolean>(false);
 
@@ -35,6 +37,12 @@ export default function Menu() {
       dispatch(fetchData());
     }
   }, [dispatch, data.length]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,7 +67,7 @@ export default function Menu() {
     setShowAnimation(true);
     setTimeout(() => {
       setShowAnimation(false);
-    }, 1300);
+    }, 2000);
   };
 
   return (
@@ -102,82 +110,105 @@ export default function Menu() {
         </h1>
         <hr className="w-[10rem] sm:w-[30rem] border border-orange-800 mb-10" />
         <Filters category={filter} setCategory={setFilter} />
-        <div
-          className={`ContainerMenu grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full max-w-6xl mx-auto py-8 ${textTitle.className}`}
-        >
-          {data.length > 0 ? (
-            data.map((entry: DataItem) => {
-              const { id, name, image, price, category, rating } = entry.fields;
-              const imageUrl = image?.fields?.file.url || "";
-              if (filter === "All" || category === filter) {
-                return (
-                  <Link key={id} href={`/menu/${id}`}>
-                    <div className="containerItem flex flex-col items-center justify-center bg-white pb-8 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl">
-                      <div className="containerImg w-full h-40 mb-4 relative overflow-hidden">
-                        <Image
-                          src={`https:${imageUrl}`}
-                          alt={name}
-                          fill
-                          sizes="auto"
-                          className="rounded-lg"
-                        />
-                      </div>
-                      <div className="info w-full flex flex-col items-start px-8 gap-2">
-                        <h2 className="text-xl font-semibold text-gray-800 text-center">
-                          {name}
-                        </h2>
-                        <div className="rating flex">
-                          {Array.from({ length: 5 }, (_, index) => (
-                            <span
-                              key={index}
-                              className={
-                                index < rating
-                                  ? "text-yellow-500"
-                                  : "text-gray-400"
-                              }
-                            >
-                              ★
-                            </span>
-                          ))}
-                        </div>
-                        <div className="price flex justify-between w-full items-center">
-                          <p className="text-lg text-orange-800 mb-2 font-bold">
-                            ${price.toFixed(2)}
-                          </p>
-                          <button
-                            onClick={(e) => {
-                              e.preventDefault();
-                              handleAddToCart({
-                                id,
-                                name,
-                                image: imageUrl,
-                                price,
-                                rating,
-                                quantity: 1,
-                              });
-                            }}
-                            className="icon rounded-full bg-gray-200 text-black w-10 h-10 flex items-center justify-center cursor-pointer"
-                          >
-                            <BsBasket2 size={20} />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                );
-              }
-            })
-          ) : (
-            <div className="md:text-7xl text-orange-800 w-92 md:absolute md:left-96 text-5xl">
-              <h1 className="text-center">No items available</h1>
-              <PiMaskSadLight
-                size={100}
-                color="#9a3412"
-                className="md:absolute md:left-64"
+
+        {isLoading ? (
+          <div className="flex gap-16 mx-auto">
+            {[...Array(3)].map((_, index) => (
+              <motion.div
+                key={index}
+                className="my-64 sm:w-16 sm:h-16 w-10 h-10 bg-orange-800 rounded-full"
+                animate={{
+                  y: [0, -20, 0],
+                }}
+                transition={{
+                  duration: 0.5,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  delay: index * 0.1,
+                }}
               />
-            </div>
-          )}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div
+            className={`ContainerMenu grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full max-w-6xl mx-auto py-8 ${textTitle.className}`}
+          >
+            {data.length > 0 ? (
+              data.map((entry: DataItem) => {
+                const { id, name, image, price, category, rating } =
+                  entry.fields;
+                const imageUrl = image?.fields?.file.url || "";
+                if (filter === "All" || category === filter) {
+                  return (
+                    <Link key={id} href={`/menu/${id}`}>
+                      <div className="containerItem flex flex-col items-center justify-center bg-white pb-8 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl">
+                        <div className="containerImg w-full h-40 mb-4 relative overflow-hidden">
+                          <Image
+                            src={`https:${imageUrl}`}
+                            alt={name}
+                            fill
+                            sizes="auto"
+                            className="rounded-lg"
+                          />
+                        </div>
+                        <div className="info w-full flex flex-col items-start px-8 gap-2">
+                          <h2 className="text-xl font-semibold text-gray-800 text-center">
+                            {name}
+                          </h2>
+                          <div className="rating flex">
+                            {Array.from({ length: 5 }, (_, index) => (
+                              <span
+                                key={index}
+                                className={
+                                  index < rating
+                                    ? "text-yellow-500"
+                                    : "text-gray-400"
+                                }
+                              >
+                                ★
+                              </span>
+                            ))}
+                          </div>
+                          <div className="price flex justify-between w-full items-center">
+                            <p className="text-lg text-orange-800 mb-2 font-bold">
+                              ${price.toFixed(2)}
+                            </p>
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleAddToCart({
+                                  id,
+                                  name,
+                                  image: imageUrl,
+                                  price,
+                                  rating,
+                                  quantity: 1,
+                                });
+                              }}
+                              className="icon rounded-full bg-gray-200 text-black w-10 h-10 flex items-center justify-center cursor-pointer"
+                            >
+                              <BsBasket2 size={20} />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                }
+              })
+            ) : (
+              <div className="md:text-7xl text-orange-800 w-92 md:absolute md:left-96 text-5xl">
+                <h1 className="text-center">No items available</h1>
+                <PiMaskSadLight
+                  size={100}
+                  color="#9a3412"
+                  className="md:absolute md:left-64"
+                />
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </>
   );
