@@ -15,7 +15,7 @@ export const getIngredientColor = (ingredient: string) => {
         "Spinach": "bg-green-700",
         "Cheddar Cheese": "bg-yellow-600",
         "Mozzarella Cheese": "bg-yellow-400",
-        "Butter": "bg-yellow-200",
+        "Butter": "bg-orange-300",
         "Rice": "bg-gray-300",
         "Noodles": "bg-gray-400",
         "Pasta": "bg-gray-500",
@@ -27,7 +27,7 @@ export const getIngredientColor = (ingredient: string) => {
         "Paprika": "bg-red-500",
         "Salt": "bg-gray-600",
         "Black Pepper": "bg-black",
-        "Sugar": "bg-gray-300",
+        "Sugar": "bg-gray-800",
         "Chocolate": "bg-brown-700",
         "Vanilla Extract": "bg-yellow-400"
     };

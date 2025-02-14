@@ -10,12 +10,11 @@ import CartAnimation from "../components/CartAnimation";
 import { addToCart } from "../context/slices/CartSlice";
 import { CartItem, DataItem, DataState } from "../types/SliceTypes";
 import Filters from "../components/Filters";
-import "./menu.css";
 import { getIngredientColor } from "../components/Ingredients";
 import { motion } from "framer-motion";
 import { PiMaskSadLight } from "react-icons/pi";
 import { Tomorrow, Mali } from "next/font/google";
-import { text } from "stream/consumers";
+import { IoMdCloseCircle } from "react-icons/io";
 const textTitle = Tomorrow({
   weight: "400",
   style: "normal",
@@ -31,7 +30,9 @@ export default function Menu() {
   const dispatch: AppDispatch = useDispatch();
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { data, loading, error } = useSelector((state: RootState) => state.data as DataState);
+  const { data, loading, error } = useSelector(
+    (state: RootState) => state.data as DataState
+  );
   const [filter, setFilter] = useState<string>("All");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -151,22 +152,32 @@ export default function Menu() {
                 const imageUrl = image?.fields?.file.url || "";
                 if (filter === "All" || category === filter) {
                   return (
-                    <Link key={id} href={`/menu/${id}`} onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setSelectedItem({
-                        id,
-                        name,
-                        image: imageUrl,
-                        price,
-                        rating,
-                        quantity: 1,
-                        description: entry.fields.description,
-                        ingredients: entry.fields.ingredients?.map((ingredient: any) => ingredient.fields.name) || [],
-                        comments: entry.fields.comments?.map((comment: any) => comment.fields.comment) || [],
-                      });
-                      setIsModalOpen(true);
-                    }}>
+                    <Link
+                      key={id}
+                      href={`/menu/${id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setSelectedItem({
+                          id,
+                          name,
+                          image: imageUrl,
+                          price,
+                          rating,
+                          quantity: 1,
+                          description: entry.fields.description,
+                          ingredients:
+                            entry.fields.ingredients?.map(
+                              (ingredient: any) => ingredient.fields.name
+                            ) || [],
+                          comments:
+                            entry.fields.comments?.map(
+                              (comment: any) => comment.fields.comment
+                            ) || [],
+                        });
+                        setIsModalOpen(true);
+                      }}
+                    >
                       <div className="containerItem flex flex-col items-center justify-center bg-white pb-8 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl">
                         <div className="containerImg w-full h-40 mb-4 relative overflow-hidden">
                           <Image
@@ -244,22 +255,30 @@ export default function Menu() {
               const imageUrl = image?.fields?.file.url || "";
               if (filter === "All" || category === filter) {
                 return (
-                  <div key={id} className="containerItem flex flex-col items-center justify-center bg-white pb-8 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedItem({
-                          id,
-                          name,
-                          image: imageUrl,
-                          price,
-                          rating,
-                          quantity: 1,
-                          description,
-                          ingredients: entry.fields.ingredients?.map((ingredient: any) => ingredient.fields.name) || [],
-                          comments: entry.fields.comments?.map((comment: any) => comment.fields.comment) || [],
-                        });
-                        setIsModalOpen(true);
-                      }}
+                  <div
+                    key={id}
+                    className="containerItem flex flex-col items-center justify-center bg-white pb-8 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedItem({
+                        id,
+                        name,
+                        image: imageUrl,
+                        price,
+                        rating,
+                        quantity: 1,
+                        description,
+                        ingredients:
+                          entry.fields.ingredients?.map(
+                            (ingredient: any) => ingredient.fields.name
+                          ) || [],
+                        comments:
+                          entry.fields.comments?.map(
+                            (comment: any) => comment.fields.comment
+                          ) || [],
+                      });
+                      setIsModalOpen(true);
+                    }}
                   >
                     <div className="containerImg w-full h-40 mb-4 relative overflow-hidden">
                       <Image
@@ -321,27 +340,35 @@ export default function Menu() {
       </div>
 
       {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="modal fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="modal-content bg-[#efeee9] rounded-lg shadow-[0_4px_8px_#00000033] lg:max-w-[500px] md:w-[25rem] w-[18rem] flex flex-col items-center text-center px-4 py-2 gap-2">
             {selectedItem ? (
               <>
-                <button 
-                  className="close-button" 
+                <IoMdCloseCircle
+                  size={25}
                   onClick={closeModal}
+                  color="#a35e27"
+                  className="cursor-pointer self-end"
+                />
+                <h1
+                  className={`text-3xl font-bold modal-name ${textTitle.className} text-orange-900`}
                 >
-                  X
-                </button>
-                {console.log("Selected Item:", selectedItem)}
-                <h1 className={`text-3xl font-bold modal-name ${textTitle.className}`}>
                   {selectedItem.name}
                 </h1>
-                <img
+                <Image
                   src={`https:${selectedItem.image}`}
                   alt={selectedItem.name}
-                  className="w-64 h-64 object-cover modal-img"
+                  width={100}
+                  height={100}
+                  className="lg:w-64 lg:h-64 md:w-40 md:h-40 object-cover modal-img border border-gray-800 rounded-xlgi"
                 />
-                <p className={`text-xl text-green-600 ${textFont.className}`}>${selectedItem.price.toFixed(2)}</p>
-                
+                <p className={`sm:text-xl text-lg ${textFont.className}`}>
+                  Price:
+                  <span className="text-orange-600 ">
+                    ${selectedItem.price.toFixed(2)}
+                  </span>
+                </p>
+
                 <div className="rating flex">
                   {Array.from({ length: 5 }, (_, index) => (
                     <span
@@ -356,23 +383,34 @@ export default function Menu() {
                     </span>
                   ))}
                 </div>
-                
-                <div className="modal-ingredients-container">
-                  <p className={`text-sm text-gray-700 ${textFont.className}`}>Ingredients:</p>
-                  <div className="mt-4 flex modal-ingredients flex-wrap gap-2">
-                    {selectedItem.ingredients?.map((ingredient: string, index: number) => (
-                      <span 
-                        key={index} 
-                        className={`px-3 py-1 rounded-full  text-white text-sm font-semibold ${getIngredientColor(ingredient)}`}
-                      >
-                        {ingredient}
-                      </span>
-                    ))}
+
+                <div className="modal-ingredients-container border-t border-t-gray-400 border-b border-b-gray-400 py-2">
+                  <p
+                    className={`text-md text-orange-700 ${textFont.className}`}
+                  >
+                    Ingredients
+                  </p>
+                  <div className="mt-4 flex modal-ingredients flex-wrap gap-2 justify-center">
+                    {selectedItem.ingredients?.map(
+                      (ingredient: string, index: number) => (
+                        <span
+                          key={index}
+                          className={`px-3 py-1 rounded-full  text-white text-sm font-semibold ${getIngredientColor(
+                            ingredient
+                          )}`}
+                        >
+                          {ingredient}
+                        </span>
+                      )
+                    )}
                   </div>
                 </div>
 
-                <Link href={`/menu/${selectedItem.id}`} onClick={(e) => e.stopPropagation()}>
-                  <button className="rounded-full details-btn">
+                <Link
+                  href={`/menu/${selectedItem.id}`}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button className="rounded-full details-btn border border-orange-800 bg-[#b46527] px-2 py-1 text-orange-200 my-2 hover:bg-orange-900">
                     View Details
                   </button>
                 </Link>
@@ -383,7 +421,6 @@ export default function Menu() {
           </div>
         </div>
       )}
-      {console.log("isModalOpen:", isModalOpen)}
     </>
   );
 }

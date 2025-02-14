@@ -11,7 +11,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./details.css";
-import { Princess_Sofia } from "next/font/google";
 import { getIngredientColor } from "@/app/components/Ingredients";
 import Image from "next/image";
 import { BsBasket2 } from "react-icons/bs";
@@ -19,7 +18,6 @@ import { addToCart } from "../../context/slices/CartSlice";
 import { CartItem } from "../../types/SliceTypes";
 import CartAnimation from "../../components/CartAnimation";
 import { Tomorrow, Mali } from "next/font/google";
-import { text } from "stream/consumers";
 const textTitle = Tomorrow({
   weight: "400",
   style: "normal",
@@ -81,10 +79,12 @@ const DetailsPage = () => {
       <div className="container mx-auto p-6 full-info">
         <div className="img-info">
             <div className="image-container">
-                <img
+                <Image
                 src={`https:${item.fields.image.fields.file.url}`}
                 alt={item.fields.name}
-                className="w-full h-full object-cover item-img"
+                width={100}
+                height={100}
+                className="w-full h-full object-cover item-img border border-gray-800"
             />
             </div>
             <div className="details">
