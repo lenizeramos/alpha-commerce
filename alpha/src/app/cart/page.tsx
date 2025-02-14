@@ -58,7 +58,7 @@ export default function Cart() {
   return (
     <>
       <div className="relative">
-        <div className="absolute -left-5 top-5">
+      <div className="absolute -left-5 top-5">
           <Image
             src={"/decoration/img12.png"}
             alt=""

@@ -30,7 +30,7 @@ const Footer = () => {
   };
   return (
     <>
-      <div className={`${textFont.className} bg-white lg:pt-20 md:pt-16 sm:pt-5 pt-10 px-10 pb-5`}>
+      <div className={`${textFont.className} bg-white lg:pt-20 pt-16 px-10 pb-5`}>
         <div className="flex gap-2 items-center">
           <Image src={"/logo.png"} alt="logo" width={50} height={50} />
           <h1

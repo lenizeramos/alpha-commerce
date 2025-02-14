@@ -25,6 +25,14 @@ body {
     0 22px 30px #4e4c4ae6;
 }
 
+.text-checkout {
+  text-shadow: 1px 0px 1px #cccccc, 0px 1px 1px #eeeeee, 2px 1px 1px #cccccc,
+    1px 2px 1px #eeeeee, 3px 2px 1px #cccccc, 2px 3px 1px #eeeeee,
+    4px 3px 1px #cccccc, 3px 4px 1px #eeeeee, 5px 4px 1px #cccccc,
+    4px 5px 1px #eeeeee, 6px 5px 1px #cccccc, 5px 6px 1px #eeeeee,
+    7px 6px 1px #cccccc;
+}
+
 .botton-shadow {
   box-shadow: inset 0px 1px 3px 0px #ea6d27;
   background: linear-gradient(to bottom, #f37f3b 5%, #ea6d27 100%);
@@ -87,6 +95,44 @@ body {
   -webkit-box-shadow: 8px 14px 24px 0px rgba(86, 85, 84, 1);
   -moz-box-shadow: 8px 14px 24px 0px rgba(86, 85, 84, 1);
   box-shadow: 8px 14px 24px 0px rgba(86, 85, 84, 1);
+}
+
+#food {
+  animation: food 10s linear infinite;
+  animation-delay: 2s;
+
+}
+
+#delivery {
+  animation: delivery 10s linear infinite;
+  animation-delay: 2s;
+}
+
+@keyframes delivery {
+  40%,
+  70% {
+    left: 60%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes food {
+  0%,
+  40% {
+    opacity: 0;
+    bottom: 0%;
+  }
+  50% {
+    opacity: 1;
+    bottom: -2.7rem;
+  }
+  60%,
+  100% {
+    opacity: 0;
+    bottom: -2.7rem;
+  }
 }
 
 @media only screen and (max-width: 1380px) {
