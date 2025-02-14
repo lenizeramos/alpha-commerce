@@ -16,12 +16,26 @@ datasource db {
 
 model User {
   id           String @id @default(auto()) @map("_id") @db.ObjectId
-  clerkId  String         @unique
+  clerkId      String         @unique
   email        String         @unique
   firstName    String?
   lastName     String?
   photo        String?
   createdAt    DateTime       @default(now())
+  orders       Order[]        @relation("UserOrders")
 
   @@map("user")
+}
+
+model Order {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String    @db.ObjectId
+  user        User      @relation("UserOrders", fields: [userId], references: [id])
+  items       Json[]
+  totalAmount Float
+  status      String    @default("pending")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("order")
 }
