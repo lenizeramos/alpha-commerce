@@ -358,7 +358,7 @@ export default function Menu() {
                 </div>
                 
                 <div className="modal-ingredients-container">
-                  <p className={`text-lg text-gray-700 ${textFont.className}`}>Ingredients:</p>
+                  <p className={`text-sm text-gray-700 ${textFont.className}`}>Ingredients:</p>
                   <div className="mt-4 flex modal-ingredients flex-wrap gap-2">
                     {selectedItem.ingredients?.map((ingredient: string, index: number) => (
                       <span 
