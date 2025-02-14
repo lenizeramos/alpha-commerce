@@ -10,6 +10,7 @@ import { SignedOut, SignedIn } from "@clerk/nextjs";
 import Link from "next/link";
 import { decoration } from "../../public/variables";
 import RandomDishes from "./components/RandomDishes";
+import { motion } from "framer-motion";
 
 import { Gowun_Dodum, Mali } from "next/font/google";
 const textTitle = Gowun_Dodum({
@@ -35,7 +36,17 @@ export default function Home() {
     <>
       <div className="relative min-h-screen px-8 sm:py-12 p:8 flex items-center justify-center bg-[#f3f4f4]">
         <div className="hidden lg:block absolute xl:top-10 top-4 left-10">
-          <Image src={"/decoration/img4.png"} alt="" width={100} height={100} />
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 10, repeat: Infinity, repeatType: "loop" }}
+          >
+            <Image
+              src={"/decoration/img4.png"}
+              alt=""
+              width={100}
+              height={100}
+            />
+          </motion.div>
         </div>
         <div className="hidden sm:block absolute border rounded-full border-gray-400 w-[50rem] h-[50rem] -left-[11.5rem] -bottom-[25rem]" />
         <div className="hidden sm:block absolute border rounded-full border-gray-400 w-[50rem] h-[50rem] -left-[29.25rem] -bottom-[12.5rem]" />

@@ -3,7 +3,7 @@ import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import CTA from "./CTA";
 import { GiExitDoor } from "react-icons/gi";
@@ -29,7 +29,7 @@ const navLinks = [
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [menu, setMenu] = useState("home");
-  const pathname = usePathname();
+  // const pathname = usePathname();
   const { signOut, user } = useClerk();
   const router = useRouter();
 
@@ -63,7 +63,7 @@ function Navbar() {
             className={`text-shadow flex items-center text-[2.5rem] sm:text-5xl font-bold ${textTitle.className} sm:gap-4`}
           >
             <Image
-              src={"/logo1.png"}
+              src={"/logo.png"}
               width={50}
               height={50}
               alt="logo"
@@ -72,25 +72,24 @@ function Navbar() {
             Alpha Bites
           </Link>
           <div className="hidden md:flex space-x-6 justify-center items-center">
-            {navLinks.map(
-              (link) =>
-                pathname !== link.href && (
-                  <button
-                    key={link.href}
-                    className={`hover:text-[#ea6d27] transition-colors ${
-                      textNav.className
-                    } ${menu === link.name ? "text-orange-400 text-lg" : ""}`}
-                    onClick={() =>
-                      handleLinkClick(link.href, link.protectedUrl, link.name)
-                    }
-                  >
-                    {link.name}
-                  </button>
-                )
-            )}
+            {navLinks.map((link) => (
+              <button
+                key={link.href}
+                className={`hover:text-[#ea6d27] transition-colors ${
+                  textNav.className
+                } ${menu === link.name ? "text-orange-400 text-lg" : ""}`}
+                onClick={() =>
+                  handleLinkClick(link.href, link.protectedUrl, link.name)
+                }
+              >
+                {link.name}
+              </button>
+            ))}
             <BsBasket2Fill
               size={25}
-              className="cursor-pointer hover:text-[#ea6d27]"
+              className={`cursor-pointer hover:text-[#ea6d27] ${
+                menu === "Cart" ? "text-orange-400" : ""
+              }`}
               onClick={() => handleLinkClick("/cart", true, "Cart")}
             />
             <div>
@@ -127,22 +126,19 @@ function Navbar() {
             : "max-h-0 opacity-0 translate-y-5"
         } overflow-hidden `}
       >
-        {navLinks.map(
-          (link) =>
-            pathname !== link.href && (
-              <button
-                key={link.href}
-                className={`text-center py-2 text-gray-900 hover:text-[#ea6d27] transition-colors ${
-                  menu === link.name ? "text-orange-400" : ""
-                }`}
-                onClick={() =>
-                  handleLinkClick(link.href, link.protectedUrl, link.name)
-                }
-              >
-                {link.name}
-              </button>
-            )
-        )}
+        {navLinks.map((link) => (
+          <button
+            key={link.href}
+            className={`text-center py-2 text-gray-900 hover:text-[#ea6d27] transition-colors ${
+              menu === link.name ? "text-orange-400" : ""
+            }`}
+            onClick={() =>
+              handleLinkClick(link.href, link.protectedUrl, link.name)
+            }
+          >
+            {link.name}
+          </button>
+        ))}
         <BsBasket2Fill
           size={25}
           className="cursor-pointer hover:text-[#ea6d27]"

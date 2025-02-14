@@ -1,7 +1,7 @@
 import { Delicious_Handrawn } from "next/font/google";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LuBadgePlus } from "react-icons/lu";
+import { useClerk } from "@clerk/nextjs";
 
 const delicious = Delicious_Handrawn({
   weight: "400",
@@ -15,16 +15,24 @@ interface ICTA {
 
 const CTA = ({ text, icon }: ICTA) => {
   const router = useRouter();
+  const { user } = useClerk();
+
+  const handleOnClick = () => {
+    if (!user) {
+      router.push("/sign-in");
+    } else {
+      router.push("/menu");
+    }
+  };
   return (
     <>
       {icon ? (
-        <Link href="/menu" >
           <LuBadgePlus
             size={30}
             color="#ea6d27"
             className="cursor-pointer"
+            onClick={handleOnClick}
           />
-        </Link>
       ) : (
         <button
           onClick={() => router.push("/sign-in")}
