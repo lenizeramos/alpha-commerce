@@ -13,6 +13,11 @@ import "swiper/css/navigation";
 import "./details.css";
 import { Princess_Sofia } from "next/font/google";
 import { getIngredientColor } from "@/app/components/Ingredients";
+import Image from "next/image";
+import { BsBasket2 } from "react-icons/bs";
+import { addToCart } from "../../context/slices/CartSlice";
+import { CartItem } from "../../types/SliceTypes";
+import CartAnimation from "../../components/CartAnimation";
 
 const PrincessSofia = Princess_Sofia({
   weight: "400",
@@ -24,6 +29,7 @@ const DetailsPage = () => {
   const dispatch: AppDispatch = useDispatch();
   const { data, loading, error } = useSelector((state: RootState) => state.data);
   const [item, setItem] = useState<any>(null);
+  const [showAnimation, setShowAnimation] = useState<boolean>(false);
 
   useEffect(() => {
     if (data.length === 0) {
@@ -38,12 +44,32 @@ const DetailsPage = () => {
     }
   }, [id, data]);
 
+  const handleAddToCart = () => {
+    if (item) {
+      const cartItem: CartItem = {
+        id: item.fields.id,
+        name: item.fields.name,
+        image: item.fields.image.fields.file.url,
+        price: item.fields.price,
+        rating: item.fields.rating,
+        quantity: 1,
+      };
+      dispatch(addToCart(cartItem));
+      setShowAnimation(true);
+      setTimeout(() => {
+        setShowAnimation(false);
+      }, 1500);
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!item) return <p>Item not found.</p>;
 
   return (
-    <div className="container mx-auto p-6 full-info">
+    <>
+      {showAnimation && <CartAnimation />}
+      <div className="container mx-auto p-6 full-info">
         <div className="img-info">
             <div className="image-container">
                 <img
@@ -67,7 +93,15 @@ const DetailsPage = () => {
                     </div>
                 </div>
                 <p className={`text-lg text-justify mb-5 text-gray-700`}>{item.fields.description}</p>
-                <p className={`text-2xl text-green-600 ${PrincessSofia.className}`}>${item.fields.price.toFixed(2)}</p>
+                <div className="flex items-center">
+                  <p className={`text-2xl text-green-600 ${PrincessSofia.className}`}>${item.fields.price.toFixed(2)}</p>
+                  <button 
+                    onClick={handleAddToCart} 
+                    className="ml-4 rounded-full cart text-white px-4 py-2"
+                  >
+                     <BsBasket2 size={20} />
+                  </button>
+                </div>
 
                 <div className="reviews mt-6">
                     <h2 className={`text-2xl text-center font-semibold mb-4 ${PrincessSofia.className}`}>Reviews</h2>
@@ -101,7 +135,8 @@ const DetailsPage = () => {
             </div>
         </div>
     </div>
-    );
+    </>
+  );
 };
 
 export default DetailsPage;
