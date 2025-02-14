@@ -59,7 +59,7 @@ export default function Menu() {
     setShowAnimation(true);
     setTimeout(() => {
       setShowAnimation(false);
-    }, 1500);
+    }, 1300);
   };
 
   return (
