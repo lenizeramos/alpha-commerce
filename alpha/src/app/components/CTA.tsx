@@ -1,3 +1,4 @@
+'use client'
 import { Delicious_Handrawn } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { LuBadgePlus } from "react-icons/lu";

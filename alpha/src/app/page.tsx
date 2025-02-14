@@ -1,18 +1,17 @@
-"use client";
-
-import { fetchData } from "../app/context/slices/DataSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../app/context/store";
-import { useEffect } from "react";
-import Image from "next/image";
-import CTA from "./components/CTA";
-import { SignedOut, SignedIn } from "@clerk/nextjs";
-import Link from "next/link";
-import { decoration } from "../../public/variables";
+// import { fetchData } from "../app/context/slices/DataSlice";
+// import { useDispatch, useSelector } from "react-redux";
+// import { RootState, AppDispatch } from "../app/context/store";
+// import { useEffect } from "react";
+// import Image from "next/image";
+// import CTA from "./components/CTA";
+// import { SignedOut, SignedIn } from "@clerk/nextjs";
+// import Link from "next/link";
+// import { decoration } from "../../public/variables";
 import RandomDishes from "./components/RandomDishes";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 
 import { Gowun_Dodum, Mali } from "next/font/google";
+import HomePage from "./components/Home";
 const textTitle = Gowun_Dodum({
   weight: "400",
   style: "normal",
@@ -25,18 +24,18 @@ const textFont = Mali({
 });
 
 export default function Home() {
-  const dispatch: AppDispatch = useDispatch();
-  const { data } = useSelector((state: RootState) => state.data);
+  // const dispatch: AppDispatch = useDispatch();
+  // const { data } = useSelector((state: RootState) => state.data);
 
-  useEffect(() => {
-    if (!data.length) {
-      dispatch(fetchData());
-    }
-  }, [dispatch, data.length]);
+  // useEffect(() => {
+  //   if (!data.length) {
+  //     dispatch(fetchData());
+  //   }
+  // }, [dispatch, data.length]);
 
   return (
     <>
-      <div className="relative min-h-screen px-8 sm:py-12 p:8 flex items-center justify-center bg-[#f3f4f4]">
+      {/* <div className="relative min-h-screen px-8 sm:py-12 p:8 flex items-center justify-center bg-[#f3f4f4]">
         <div className="hidden lg:block absolute xl:top-10 top-4 left-10">
           <motion.div
             animate={{ rotate: 360 }}
@@ -120,7 +119,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
+      <HomePage />
       <RandomDishes />
     </>
   );
