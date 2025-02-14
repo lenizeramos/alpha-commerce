@@ -60,7 +60,7 @@ export default function Cart() {
             height={400}
           />
         </div>
-        <div className="absolute right-5 top-5 rotate-45">
+        <div className="hidden sm:block absolute right-5 top-5 rotate-45">
           <Image src={"/decoration/img8.png"} alt="" width={100} height={100} />
         </div>
         <div className="absolute top-5">
@@ -110,7 +110,7 @@ export default function Cart() {
             <>
               <div className="flex flex-col gap-2 relative pb-10 items-center justify-center">
                 <div className="overflow-y-auto h-[45vh] p-3">
-                  <ul className="grid grid-cols-2 gap-4">
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {cartItems.map((item, index) => (
                       <li
                         key={index}
@@ -165,7 +165,7 @@ export default function Cart() {
                     ))}
                   </ul>
                 </div>
-                <div className="flex flex-col gap-5 absolute -bottom-28 w-96">
+                <div className="flex flex-col gap-5 absolute -bottom-28 w-60 sm:w-96">
                   <p className="mt-4 text-center text-xl font-bold">
                     Total: $ 
                     <span className="text-orange-700">
