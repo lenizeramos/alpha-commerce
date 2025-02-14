@@ -151,7 +151,22 @@ export default function Menu() {
                 const imageUrl = image?.fields?.file.url || "";
                 if (filter === "All" || category === filter) {
                   return (
-                    <Link key={id} href={`/menu/${id}`}>
+                    <Link key={id} href={`/menu/${id}`} onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setSelectedItem({
+                        id,
+                        name,
+                        image: imageUrl,
+                        price,
+                        rating,
+                        quantity: 1,
+                        description: entry.fields.description,
+                        ingredients: entry.fields.ingredients?.map((ingredient: any) => ingredient.fields.name) || [],
+                        comments: entry.fields.comments?.map((comment: any) => comment.fields.comment) || [],
+                      });
+                      setIsModalOpen(true);
+                    }}>
                       <div className="containerItem flex flex-col items-center justify-center bg-white pb-8 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl">
                         <div className="containerImg w-full h-40 mb-4 relative overflow-hidden">
                           <Image
@@ -316,6 +331,7 @@ export default function Menu() {
                 >
                   X
                 </button>
+                {console.log("Selected Item:", selectedItem)}
                 <h1 className={`text-3xl font-bold modal-name ${textTitle.className}`}>
                   {selectedItem.name}
                 </h1>
@@ -324,7 +340,6 @@ export default function Menu() {
                   alt={selectedItem.name}
                   className="w-64 h-64 object-cover modal-img"
                 />
-                {/* <p className={`text-lg text-gray-700 ${PrincessSofia.className}`}>{selectedItem.description}</p> */}
                 <p className={`text-xl text-green-600 ${textFont.className}`}>${selectedItem.price.toFixed(2)}</p>
                 
                 <div className="rating flex">
@@ -368,6 +383,7 @@ export default function Menu() {
           </div>
         </div>
       )}
+      {console.log("isModalOpen:", isModalOpen)}
     </>
   );
 }

@@ -1,4 +1,4 @@
-export type DataItem = {
+export interface DataItem {
   fields: {
     id: number;
     name: string;
@@ -13,8 +13,11 @@ export type DataItem = {
     description: string;
     category: string;
     rating: number;
-  };
-};
+    ingredients?: { fields: { name: string } }[];
+    comments?: { fields: { comment: string } }[];
+  }
+  
+}
 
 export interface DataState {
   data: DataItem[];

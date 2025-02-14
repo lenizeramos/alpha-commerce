@@ -18,9 +18,16 @@ import { BsBasket2 } from "react-icons/bs";
 import { addToCart } from "../../context/slices/CartSlice";
 import { CartItem } from "../../types/SliceTypes";
 import CartAnimation from "../../components/CartAnimation";
-
-const PrincessSofia = Princess_Sofia({
+import { Tomorrow, Mali } from "next/font/google";
+import { text } from "stream/consumers";
+const textTitle = Tomorrow({
   weight: "400",
+  style: "normal",
+  subsets: ["latin"],
+});
+const textFont = Mali({
+  weight: "400",
+  style: "normal",
   subsets: ["latin"],
 });
 
@@ -81,7 +88,7 @@ const DetailsPage = () => {
             />
             </div>
             <div className="details">
-                <h1 className={`text-5xl mb-8 font-bold ${PrincessSofia.className}`}>{item.fields.name}</h1>
+                <h1 className={`text-5xl mb-8 font-bold ${textTitle.className}`}>{item.fields.name}</h1>
                 <div className="ingredients-container">
                     <div className="mb-2 flex ingredients flex-wrap gap-2">
                         {item.fields.ingredients?.map((ingredient: any, index: number) => (
@@ -96,7 +103,7 @@ const DetailsPage = () => {
                 </div>
                 <p className={`text-lg text-justify mb-5 text-gray-700`}>{item.fields.description}</p>
                 <div className="flex items-center">
-                  <p className={`text-2xl text-green-600 ${PrincessSofia.className}`}>${item.fields.price.toFixed(2)}</p>
+                  <p className={`text-2xl text-green-600 ${textTitle.className}`}>${item.fields.price.toFixed(2)}</p>
                   <button 
                     onClick={handleAddToCart} 
                     className="ml-4 rounded-full cart text-white px-4 py-2"
@@ -106,7 +113,7 @@ const DetailsPage = () => {
                 </div>
 
                 <div className="reviews mt-6">
-                    <h2 className={`text-2xl text-center font-semibold mb-4 ${PrincessSofia.className}`}>Reviews</h2>
+                    <h2 className={`text-2xl text-center font-semibold mb-4 ${textTitle.className}`}>Reviews</h2>
                     {item.fields.comments && item.fields.comments.length > 0 ? (
                         <Swiper
                         modules={[Pagination, Navigation]}
