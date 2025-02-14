@@ -179,7 +179,7 @@ export default function Cart() {
                               </div>
                               <IoTrashOutline
                                 size={20}
-                                onClick={() => dispatch(removeFromCart(index))}
+                                onClick={() => dispatch(removeFromCart(item.id))}
                                 className="cursor-pointer"
                               />
                             </div>
