@@ -9,7 +9,7 @@ import {
   decreaseQuantity,
 } from "../context/slices/CartSlice";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PiMaskSadLight } from "react-icons/pi";
 import { Mali } from "next/font/google";
 import { LuBadgePlus } from "react-icons/lu";
@@ -17,6 +17,7 @@ import { IoTrashOutline } from "react-icons/io5";
 import { CiCirclePlus } from "react-icons/ci";
 // import { CiCircleMinus } from "react-icons/ci";
 import { AiFillMinusCircle } from "react-icons/ai";
+import { motion } from "framer-motion";
 
 const textFont = Mali({
   weight: "400",
@@ -27,10 +28,15 @@ const textFont = Mali({
 export default function Cart() {
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.items);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000); 
+  }, []);
 
   const handleCheckout = async () => {
-    setIsLoading(true);
     try {
       const response = await fetch("/api/createCheckout", {
         method: "POST",
@@ -61,7 +67,25 @@ export default function Cart() {
       </h1>
       <hr className="w-[10rem] sm:w-[30rem] border border-orange-800 mb-10" />
 
-      {cartItems.length === 0 ? (
+      {isLoading ?( <div className="flex gap-16">
+      {[...Array(3)].map((_, index) => (
+      <motion.div
+      key={index}
+      className="my-64 w-16 h-16 bg-orange-800 rounded-full"
+      animate={{
+        y: [0, -20, 0], 
+      }}
+      transition={{
+        duration: 0.5, 
+        ease: "easeInOut",
+        repeat: Infinity, 
+        repeatType: "loop",
+        delay: index * 0.1, 
+      }}
+      />
+      ))}
+</div>
+      ): cartItems.length === 0 ? (
         <div className="md:text-7xl text-gray-700 w-92 text-5xl flex flex-col items-center justify-center gap-10">
           <p className="text-center">Your cart is empty.</p>
           <PiMaskSadLight size={100} color="#9a3412" />
