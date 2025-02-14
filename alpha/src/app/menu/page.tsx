@@ -213,6 +213,7 @@ export default function Menu() {
                             <button
                               onClick={(e) => {
                                 e.preventDefault();
+                                e.stopPropagation();
                                 handleAddToCart({
                                   id,
                                   name,
@@ -249,7 +250,7 @@ export default function Menu() {
 
       {isModalOpen && (
         <div className="modal fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="modal-content bg-[#efeee9] rounded-lg shadow-[0_4px_8px_#00000033] lg:max-w-[500px] md:w-[25rem] w-[18rem] flex flex-col items-center text-center px-4 py-2 gap-2">
+          <div className="modal-content bg-[#efeee9] rounded-lg shadow-[0_4px_8px_#00000033] lg:max-w-[500px] md:w-[25rem] w-[18rem] flex flex-col items-center text-center px-4 py-2 gap-2 z-60">
             {selectedItem ? (
               <>
                 <IoMdCloseCircle
