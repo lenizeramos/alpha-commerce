@@ -25,7 +25,8 @@
     "react-redux": "^9.2.0",
     "sass": "^1.83.1",
     "stripe": "^17.6.0",
-    "svix": "^1.45.1"
+    "svix": "^1.45.1",
+    "swiper": "^11.2.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

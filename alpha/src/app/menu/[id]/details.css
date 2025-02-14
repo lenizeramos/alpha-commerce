@@ -1,13 +1,46 @@
-.review {
-  transition: transform 0.3s ease, opacity 0.3s ease;
+.full-info {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 7rem;
 }
 
-.large {
-  transform: scale(1.1); /* Aumenta el tamaño de la reseña activa */
-  opacity: 1; /* Asegúrate de que la reseña activa sea completamente visible */
+.img-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+        img info;
+    background-color:  #b8adc0;
+    padding: 2rem;
+    border-radius: 100px;
 }
 
-.small {
-  transform: scale(0.9); /* Reduce el tamaño de las reseñas no activas */
-  opacity: 0.7; 
+.img-container {
+    grid-area: "img";
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.item-img {
+    max-width: auto;
+    border-radius: 80px;
+}
+
+.details {
+    grid-area: "info";
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+
+.custom-swiper .swiper-button-next,
+.custom-swiper .swiper-button-prev {
+    color: #8a729e; /* Cambia el color de los botones de navegación */
+}
+
+.custom-swiper .swiper-pagination-bullet {
+    background: #8a729e;
 }

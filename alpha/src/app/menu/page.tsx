@@ -211,15 +211,18 @@ export default function Menu() {
                   ))}
                 </div>
                 
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {selectedItem.ingredients?.map((ingredient: string, index: number) => (
-                    <span 
-                      key={index} 
-                      className={`px-3 py-1 rounded-full modal-ingredients text-white text-sm font-semibold ${getIngredientColor(ingredient)}`}
-                    >
-                      {ingredient}
-                    </span>
-                  ))}
+                <div className="modal-ingredients-container">
+                  <p className={`text-lg text-gray-700 ${PrincessSofia.className}`}>Ingredients:</p>
+                  <div className="mt-4 flex modal-ingredients flex-wrap gap-2">
+                    {selectedItem.ingredients?.map((ingredient: string, index: number) => (
+                      <span 
+                        key={index} 
+                        className={`px-3 py-1 rounded-full  text-white text-sm font-semibold ${getIngredientColor(ingredient)}`}
+                      >
+                        {ingredient}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
                 <Link href={`/menu/${selectedItem.id}`} onClick={(e) => e.stopPropagation()}>
