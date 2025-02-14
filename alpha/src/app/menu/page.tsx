@@ -30,7 +30,7 @@ export default function Menu() {
   const dispatch: AppDispatch = useDispatch();
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { data, loading, error } = useSelector(
+  const { data } = useSelector(
     (state: RootState) => state.data as DataState
   );
   const [filter, setFilter] = useState<string>("All");
