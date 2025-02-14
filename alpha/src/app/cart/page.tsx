@@ -108,7 +108,7 @@ export default function Cart() {
             </div>
           ) : (
             <>
-              <div className="flex flex-col gap-2 relative pb-10 items-center justify-center">
+              <div className="flex flex-col gap-2 items-center justify-center">
                 <div className="overflow-y-auto h-[45vh] p-3">
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {cartItems.map((item, index) => (
@@ -165,7 +165,7 @@ export default function Cart() {
                     ))}
                   </ul>
                 </div>
-                <div className="flex flex-col gap-5 absolute -bottom-28 w-60 sm:w-96">
+                <div className="flex flex-col gap-5 w-60 sm:w-96">
                   <p className="mt-4 text-center text-xl font-bold">
                     Total: $ 
                     <span className="text-orange-700">

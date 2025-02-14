@@ -62,7 +62,7 @@ const HomePage = () => {
               className={`text-gray-600 text-xl sm:text-2xl text-center ${textFont.className}`}
             >
               Come experience a unique gastronomic journey! Flavor, quality, and
-              the service you deserve. We’re waiting for you!
+              the service you deserve. We&apos;re waiting for you!
             </p>
             <div className="flex justify-center">
               <SignedOut>
