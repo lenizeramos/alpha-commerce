@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import store from "./context/store";
 import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "@/app/components/Navbar";
+import Footer from "./components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,7 @@ export default function RootLayout({
           <Provider store={store}>
             <main className="pt-16">{children}</main>
           </Provider>
+          <Footer />
         </body>
       </html>
     </ClerkProvider>

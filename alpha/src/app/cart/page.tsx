@@ -1,23 +1,41 @@
 "use client";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../context/store";
-import { removeFromCart, clearCart, increaseQuantity, decreaseQuantity } from "../context/slices/CartSlice";
+import Link from "next/link";
+import {
+  removeFromCart,
+  clearCart,
+  increaseQuantity,
+  decreaseQuantity,
+} from "../context/slices/CartSlice";
 import Image from "next/image";
-import { Princess_Sofia } from "next/font/google";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { PiMaskSadLight } from "react-icons/pi";
+import { Mali } from "next/font/google";
+import { LuBadgePlus } from "react-icons/lu";
+import { IoTrashOutline } from "react-icons/io5";
+import { FaCirclePlus } from "react-icons/fa6";
+import { FaMinusCircle } from "react-icons/fa";
+import { motion } from "framer-motion";
 
-const PrincessSofia = Princess_Sofia({
+const textFont = Mali({
   weight: "400",
+  style: "normal",
   subsets: ["latin"],
 });
 
 export default function Cart() {
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.items);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000); 
+  }, []);
 
   const handleCheckout = async () => {
-    setIsLoading(true); 
     try {
       const response = await fetch("/api/createCheckout", {
         method: "POST",
@@ -28,7 +46,7 @@ export default function Cart() {
       });
 
       const data = await response.json();
-      window.location.href = data.url; 
+      window.location.href = data.url;
     } catch (error) {
       alert("An error occurred. Please try again.");
       console.error(error);
@@ -38,72 +56,170 @@ export default function Cart() {
   };
 
   return (
-    <div className={`max-w-4xl mx-auto py-8 ${PrincessSofia.className}`}>
-      <h1 className="text-3xl font-bold text-center mb-6">Shopping Cart</h1>
+    <>
+      <div className="relative">
+        <div className="absolute -left-5 top-5">
+          <Image
+            src={"/decoration/img12.png"}
+            alt=""
+            width={400}
+            height={400}
+          />
+        </div>
+        <div className="hidden sm:block absolute right-5 top-5 rotate-45">
+          <Image src={"/decoration/img8.png"} alt="" width={100} height={100} />
+        </div>
+        <div className="absolute top-5">
+          <Image
+            src={"/decoration/img12.png"}
+            alt=""
+            width={400}
+            height={400}
+            className="opacity-5"
+          />
+        </div>
+        <div className="absolute right-0 opacity-15 -bottom-72">
+          <Image
+            src={"/decoration/img13.png"}
+            alt=""
+            width={300}
+            height={300}
+          />
+        </div>
+        <div
+          className={` py-8 ${textFont.className} flex flex-col items-center justify-center`}
+        >
+          <h1
+            className={`my-5 md:text-6xl text-5xl text-orange-800 border-b-2 border-orange-800 pb-5 text-center`}
+          >
+            Your Cart
+          </h1>
+          <hr className="w-[10rem] sm:w-[30rem] border border-orange-800 mb-10" />
 
-      {cartItems.length === 0 ? (
-        <p className="text-center">Your cart is empty.</p>
-      ) : (
-        <>
-          <ul className="space-y-4">
-            {cartItems.map((item, index) => (
-              <li key={index} className="flex items-center justify-between bg-white p-4 shadow rounded-lg">
-                <div className="flex items-center gap-4">
-                  <Image
-                    src={`https:${item.image}`}
-                    alt={item.name}
-                    width={60}
-                    height={60}
-                    className="rounded-md"
-                  />
-                  <div className="flex flex-row gap-16">
-                    <h2 className="text-lg font-semibold text-gray-800">{item.name}</h2>
-                    <p className="text-green-600 w-24">${(item.price * item.quantity).toFixed(2)}</p>
-                    <div className="flex items-center gap-4 w-24">
-                      <button
-                        className="text-gray-600 w-4 bg-gray-200"
-                        onClick={() => dispatch(decreaseQuantity(item.id))}
+          {isLoading ?( <div className="flex gap-16">
+      {[...Array(3)].map((_, index) => (
+      <motion.div
+      key={index}
+      className="my-64 sm:w-16 sm:h-16 w-10 h-10 bg-orange-800 rounded-full"
+      animate={{
+        y: [0, -20, 0], 
+      }}
+      transition={{
+        duration: 0.5, 
+        ease: "easeInOut",
+        repeat: Infinity, 
+        repeatType: "loop",
+        delay: index * 0.1, 
+      }}
+      />
+      ))}
+</div>
+      ): cartItems.length === 0 ? (
+            <div className="md:text-7xl text-gray-700 w-92 text-5xl flex flex-col items-center justify-center gap-10">
+              <p className="text-center">Your cart is empty.</p>
+              <PiMaskSadLight size={100} color="#9a3412" />
+              <Link
+                href="/menu"
+                className="botton-shadow flex px-5 py-2 text-white rounded-full gap-3"
+              >
+                <h1 className="text-xl">Let&apos;s Buy</h1>
+                <LuBadgePlus
+                  size={25}
+                  color="#F2F0EB"
+                  className="cursor-pointer"
+                />
+              </Link>
+            </div>
+          ) : (
+            <>
+              <div className="flex flex-col gap-2 items-center justify-center">
+                <div className="overflow-y-auto h-[45vh] p-3">
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {cartItems.map((item, index) => (
+                      <li
+                        key={index}
+                        className="flex items-center justify-center bg-[#e3dac9] p-3 shadow-md rounded-lg hover:scale-105"
                       >
-                        -
-                      </button>
-                      <span className="text-gray-600 w-4">{item.quantity}</span>
-                      <button
-                        className="text-gray-600 w-4 bg-gray-200"
-                        onClick={() => dispatch(increaseQuantity(item.id))}
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
+                        <div className="flex items-center  gap-4">
+                          <Image
+                            src={`https:${item.image}`}
+                            alt={item.name}
+                            width={100}
+                            height={100}
+                            className="rounded-md border border-gray-800"
+                          />
+                          <div className="flex flex-col">
+                            <h2 className="text-lg font-semibold text-orange-800">
+                              {item.name}
+                            </h2>
+                            <p className="text-gray-700 pb-2">
+                              ${(item.price * item.quantity).toFixed(2)}
+                            </p>
+                            <div className="flex items-center gap-4 justify-between">
+                              <div className="flex items-center gap-4 justify-center">
+                                <FaMinusCircle
+                                  size={15}
+                                  onClick={() =>
+                                    dispatch(decreaseQuantity(item.id))
+                                  }
+                                  color="#693618"
+                                  className="cursor-pointer"
+                                />
+                                <span className="text-gray-600">
+                                  {item.quantity}
+                                </span>
+                                <FaCirclePlus
+                                  size={15}
+                                  onClick={() =>
+                                    dispatch(increaseQuantity(item.id))
+                                  }
+                                  color="#693618"
+                                  className="cursor-pointer"
+                                />
+                              </div>
+                              <IoTrashOutline
+                                size={20}
+                                onClick={() => dispatch(removeFromCart(index))}
+                                className="cursor-pointer"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <button
-                  onClick={() => dispatch(removeFromCart(index))}
-                  className="bg-red-500 text-white px-3 py-1 rounded-md"
-                >
-                  Delete
-                </button>
-              </li>
-            ))}
-          </ul>
-
-          <button
-            onClick={() => dispatch(clearCart())}
-            className="mt-6 w-full bg-red-600 text-white py-2 rounded-lg"
-          >
-            Empty Cart
-          </button>
-          <p className="mt-4 text-center">
-            Total: ${cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}
-          </p>
-          <button
-            onClick={handleCheckout}
-            className="mt-6 w-full bg-blue-500 text-white py-2 rounded-lg"
-            disabled={isLoading} 
-          >
-            {isLoading ? "Processing..." : "Checkout"}
-          </button>
-        </>
-      )}
-    </div>
+                <div className="flex flex-col gap-5 w-60 sm:w-96">
+                  <p className="mt-4 text-center text-xl font-bold">
+                    Total: $ 
+                    <span className="text-orange-700">
+                      {cartItems
+                        .reduce(
+                          (total, item) => total + item.price * item.quantity,
+                          0
+                        )
+                        .toFixed(2)}
+                    </span>
+                  </p>
+                  <button
+                    onClick={() => dispatch(clearCart())}
+                    className=" botton-empty rounded-lg text-gray-200 py-1"
+                  >
+                    Empty Cart
+                  </button>
+                  <button
+                    onClick={handleCheckout}
+                    className="botton-checkout rounded-lg text-gray-800 py-1"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Processing..." : "Checkout"}
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </>
   );
 }

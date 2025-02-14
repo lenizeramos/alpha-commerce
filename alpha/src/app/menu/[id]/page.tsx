@@ -39,7 +39,9 @@ const DetailsPage = () => {
 
   useEffect(() => {
     if (data.length > 0) {
-      const selectedItem = data.find((entry) => String(entry.fields.id) === String(id));
+      const selectedItem = data.find(
+        (entry) => String(entry.fields.id) === String(id)
+      );
       setItem(selectedItem || null);
     }
   }, [id, data]);

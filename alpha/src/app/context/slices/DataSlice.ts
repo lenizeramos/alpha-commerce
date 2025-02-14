@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { DataItem, DataState } from "@/app/types/SliceTypes";
+import { DataState } from "@/app/types/SliceTypes";
 
 
 
