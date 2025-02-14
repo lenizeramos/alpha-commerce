@@ -11,11 +11,15 @@ const textFont = Mali({
   weight: "400",
   style: "normal",
   subsets: ["latin"],
+  display: "swap",
+  adjustFontFallback: false,
 });
 const textTitle = Gowun_Dodum({
   weight: "400",
   style: "normal",
   subsets: ["latin"],
+  display: "swap",
+  adjustFontFallback: false,
 });
 
 const RandomDishes = () => {

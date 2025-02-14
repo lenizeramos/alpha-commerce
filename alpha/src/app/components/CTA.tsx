@@ -7,6 +7,8 @@ const delicious = Delicious_Handrawn({
   weight: "400",
   style: "normal",
   subsets: ["latin"],
+  display: "swap",
+  adjustFontFallback: false,
 });
 
 interface ICTA {

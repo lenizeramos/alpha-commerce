@@ -17,11 +17,15 @@ const textTitle = Gowun_Dodum({
   weight: "400",
   style: "normal",
   subsets: ["latin"],
+  display: "swap",
+  adjustFontFallback: false,
 });
 const textFont = Mali({
   weight: "400",
   style: "normal",
   subsets: ["latin"],
+  display: "swap",
+  adjustFontFallback: false,
 });
 
 export default function Home() {

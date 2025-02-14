@@ -15,12 +15,16 @@ const textTitle = Ephesis({
   weight: "400",
   style: "normal",
   subsets: ["latin"],
+  display: "swap",
+  adjustFontFallback: false,
 });
 
 const textNav = Tomorrow({
   weight: "400",
   style: "normal",
   subsets: ["latin"],
+  display: "swap",
+  adjustFontFallback: false,
 });
 
 const navLinks = [
