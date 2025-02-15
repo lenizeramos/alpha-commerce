@@ -98,14 +98,11 @@ body {
 }
 
 #food {
-  animation: food 10s linear infinite;
-  animation-delay: 2s;
-
+  animation: food 8s linear infinite;
 }
 
 #delivery {
-  animation: delivery 10s linear infinite;
-  animation-delay: 2s;
+  animation: delivery 8s linear infinite;
 }
 
 @keyframes delivery {
