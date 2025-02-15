@@ -1,11 +1,11 @@
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Order, OrderItem } from "../../types/OrderTypes";
+import { Order } from "../../types/OrderTypes";
 
 async function getOrder(orderId: string): Promise<Order | null> {
-  const { userId } = auth();
+  const { userId } = await auth();
   if (!userId) return null;
 
   const user = await prisma.user.findUnique({
@@ -21,7 +21,14 @@ async function getOrder(orderId: string): Promise<Order | null> {
     },
   });
 
-  return order;
+  if (!order) return null;
+
+  // Cast the order data with proper type assertions
+  return {
+    ...order,
+    status: order.status as Order['status'],
+    items: (order.items as unknown) as Order['items']
+  } as Order;
 }
 
 export default async function OrderDetailPage({
