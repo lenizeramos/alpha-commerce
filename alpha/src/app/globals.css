@@ -131,9 +131,13 @@ body {
     bottom: -2.7rem;
   }
 }
-
-@media only screen and (max-width: 1380px) {
-  .position-img3 {
-    display: none;
+ 
+@media only screen and (max-width: 780px) {
+  #food {
+    animation: food 5s linear infinite;
+  }
+  
+  #delivery {
+    animation: delivery 5s linear infinite;
   }
 }
