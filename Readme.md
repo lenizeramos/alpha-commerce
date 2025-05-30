@@ -7,7 +7,7 @@
 
 ## 📖 Overview
 
-🔗 [Live Demo](https://unicareer.online)
+🔗 [Live Demo](https://alpha-bites.vercel.app/)
 
 **Alpha** is a modern, responsive, and authentication-protected restaurant web application built using **Next.js 15**.  
 Public users can browse featured menu items, while authenticated users get full access to the entire catalog, detailed views, and a cart system.
